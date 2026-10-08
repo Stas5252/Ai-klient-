@@ -1,12 +1,12 @@
 # Результаты проверок
 
-Последняя полная проверка: 08.10.2026, 06:16 UTC, Node 24.19, TypeScript, Vitest 4.1.11, local workerd/Miniflare D1 (не production Cloudflare).
+Последняя полная автоматическая проверка: 08.10.2026, 06:48 UTC, Node 24.19, TypeScript, Vitest 4.1.11, local workerd/Miniflare D1. Production проверки отдельно ниже.
 
 | Проверка | Результат |
 |---|---|
-| `npm test` | 75 tests PASS, 6 files, exit0 |
+| `npm test` | 84 tests PASS, 8 files, exit0 |
 | `npm run typecheck` | PASS, exit0 |
-| `npm run build` | PASS, dry-run bundle 71.40 KiB / gzip18.90 KiB, exit0 |
+| `npm run build` | PASS, dry-run bundle 74.31 KiB / gzip19.50 KiB, exit0 |
 | `git diff --check` | PASS |
 | Secret scan tracked files | PASS, нет bot token или private CRM |
 | Реальный Workspace RSS + pipeline | 50 inspected, 6 qualified/inserted, 44 rejected |
@@ -15,8 +15,14 @@
 | Реальный Overpass | 10 public business candidates, 0 verified website need, 0 личных контактов |
 | Реальный Telegram API | getMe OK, owner private /start matched, test sendMessage OK message_id2 + 6 real pipeline уведомлений, всего7 |
 | GitHub CI | SUCCESS, https://github.com/Stas5252/Ai-klient-/actions/runs/37736888092 для кода66d3cac |
-| Production deploy | НЕ ВЫПОЛНЕН: Cloudflare secrets отсутствуют |
-| Production webhook / следующий cron / CPU | НЕ ПОДТВЕРЖДЕНЫ |
+| Production deploy | Worker/D1 развёрнуты 06:36 UTC, миграции и Secrets установлены, health200 |
+| Production Telegram | webhook URL правильный, pending0/errorfalse; owner-only /health/pause/resume200 |
+| Production источник | 06:39 manual run:50/6/44; 06:49 повтор:50/6/44 inserted0 |
+| Production cron | Настоящий cron около06:45, eventTimestamp06:46:00, outcomeok, notifications3 |
+| Production static audit | 06:49 stanislavweb.ru:done, stateok, problems0; сайт не изменялся |
+| Production D1/outbox | leads6/uniqueURLs6; sent12, нет pending/failed/unknown на06:51 |
+| Production CPU | 72ms first collection, 38ms repeat+audit, 21ms cron+send. Все outcomeok, но выше Free10ms; риск не закрыт |
+| Billing API | OAuth /subscriptions403, entitlements[]. Нет authoritative Free проверки; bootstrap нового пустого аккаунта, покупок0 |
 
 Агрегированные доказательства в research/*.json; сырые leads/briefings/SQLite — private/, не git. Во время проверки точности первоначальные 11 кандидатов были пересмотрены: 5 маркетинговых/неверно квалифицированных записей исключены. Финальные числа 6/44/0 partners.
 
@@ -50,4 +56,4 @@
 
 ## Проверка кода
 
-Независимый агент review проверил код и нашёл 6 проблем: intake atomicity, inbound dedup, cleanup of owner copies, optout bypass, parser workload, HTTP quota. Все исправлены; regression tests подтверждают первые 4 и quota. Workload ограничен и измерен локально. Повторная независимая проверка не выполнялась; после исправлений полная suite75/typecheck/build прошла.
+Независимый агент review проверил код и нашёл 6 проблем: intake atomicity, inbound dedup, cleanup of owner copies, optout bypass, parser workload, HTTP quota. Все исправлены; regression tests подтверждают первые 4 и quota. Workload ограничен и измерен локально. Дополнительный независимый review deployment-policy и защищённых Telegram connect/status endpoints: новых critical/important замечаний нет; bootstrap нельзя выдавать за подтверждение billing. Полная suite84/typecheck/build прошла.

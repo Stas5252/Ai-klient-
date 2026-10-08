@@ -1,26 +1,38 @@
 # Реальное состояние на 08.10.2026
 
-**Проект не принят как завершённый: production Worker не развёрнут, webhook и следующий автономный cron не подтверждены.** Недостающие Cloudflare credentials — конкретный блокер, а не скрытая платная зависимость.
+**Облачное ядро работает, первый настоящий cron подтверждён. Полная приёмка всего ТЗ не завершена: CPU превышает опубликованный Free лимит, тариф не подтверждён Billing API, дополнительные источники/браузерный аудит/исходящие не подключены.**
 
-## Подтверждено
+## Доступ
 
-- Код опубликован в https://github.com/Stas5252/Ai-klient- , main. Push и remote commit подтверждены; публичный репозиторий содержит только код/fixtures/агрегаты. GitHub CI для кода 66d3cac прошёл успешно (run37736888092).
-- Реальный официальный Workspace RSS: 50 публикаций, после уточнения классификации 6 веб-кандидатов, 44 отброшены, 0 подтверждённых партнёров. Все кандидаты требуют ручной проверки правил бесплатного отклика; это не 6 согласившихся клиентов.
-- Persistent local SQLite вне git, cross-source content + URL dedup; repeated run не создаёт новых дубликатов.
-- Реальный read-only audit https://stanislavweb.ru/: HTTP/HTML/DNS/robots checks выполнены, реализованные сигналы не обнаружили проблем. Не означает отсутствие любых проблем сайта.
-- Overpass: 10 реальных бизнес-карточек выбранной малой области Москвы, 0 доказанных потребностей/отсутствия сайта, личные контакты не собирались.
-- Telegram getMe вернул StanislawWeb_bot; owner @Butov52 проверен по private /start; настоящий тест sendMessage доставлен, message_id=2; затем реальный pipeline отправил ещё 6 уведомлений владельцу (карточки/отчёт), всего 7. Это ручная проверка подключения из сессии, не production webhook.
-- Тесты и typecheck прошли; результаты/дата последних проверок — TEST_RESULTS.md.
-- Никаких сообщений посторонним, покупок/платных API/VPS/PRO/карты не было.
+- GitHub: https://github.com/Stas5252/Ai-klient- . Публичный репозиторий содержит код, тестовые fixtures и агрегаты, без CRM/контактов/секретов.
+- HTTP health: https://web-lead-machine.stas5252-leads-9fb8e2.workers.dev/health . Проверяет HTTP, не свежий сбор. Для программной проверки используйте User-Agent `WebLeadMachine/0.1`: Cloudflare может блокировать стандартный Python/Node UA кодом 1010.
+- Управление: https://t.me/StanislawWeb_bot . Numeric whitelist владельца установлен, ID не публикуется.
+- Панель: https://dash.cloudflare.com/9fb8e2fe6df89c2cf254b6d241a59f10/workers/services/view/web-lead-machine/production/settings . Требуется вход владельца.
 
-## Реализовано в коде, но не работает автономно до deploy
+## Подтверждено в production
 
-Cron, D1, Telegram commands/status buttons, rule intake/CRM, inbox/outbox recovery, optout/deletion, reports, backoff/quotas/leases, безопасные error codes, shutdown. Входящие реальные клиентские заявки не тестировались на посторонних; только fixtures.
+- Cloudflare OAuth подтверждён владельцем; Worker и постоянная D1 `web-lead-machine` созданы, миграции применены. Секреты установлены через Cloudflare Secrets.
+- Telegram getMe, setWebhook и setMyCommands успешны. `/api/telegram-status`: правильный URL webhook, pending=0, hasError=false.
+- Облачный ручной поиск 06:39:34 UTC: 50 inspected, 6 qualified/inserted, 44 rejected, notifications=3, state=ok. Это 6 кандидатов на проверку, не согласившиеся клиенты. Бесплатность конкретного отклика неизвестна.
+- **Настоящий Cron Trigger около 06:45 UTC**, `event.cron="*/15 * * * *"`, outcome=ok: inspected=0 (источник ещё не due), notifications=3. Фактический eventTimestamp в tail — 06:46:00 UTC. Запуск инициирован Cloudflare независимо от локальной команды.
+- Production webhook-команды `/health`, `/pause`, `/resume` проверены явно синтетическими owner-only updates с уникальными ID. Последнее состояние paused=0/outboundStopped=0; посторонние люди не участвовали.
+- Облачный повторный поиск + аудит 06:49:23 UTC: inspected=50, qualified=6, inserted=0, rejected=44, audits=1, state=ok. D1: 6 уникальных leads без дублей, sent=12, других состояний outbox нет. Эти сообщения — карточки, отчёт и owner-only проверки, не 12 разных лидов. Ещё 7 сообщений ранее доставлены владельцу из локальных проверок; всего 19 на момент этой проверки.
+- Реальный облачный read-only audit собственного stanislavweb.ru прошёл: state=ok, problems=[]; audit_jobs.status=done. Только реализованные static checks, не обещание отсутствия любых проблем.
+- Overpass локально вернул 10 реальных публичных бизнес-карточек малой области Москвы, 0 подтверждённых потребностей/отсутствия сайта; личные контакты не собирались. BUSINESS_BBOX в production не задан, регулярный поиск компаний выключен.
+- Никаких сообщений третьим лицам, покупок, платных API/VPS/PRO или добавления карты.
 
-## Неподключённое
+## Что работает
 
-FL regular monitoring отключён по robots; Freelance/Weblancer/Habr API/RSS не подтверждены; публичные Telegram arbitrary channel reads отсутствуют; Threads/VK/личный Telegram аккаунт и исходящие transport не подключены. Cold outreach — черновики без отправки.
+Официальный Workspace RSS раз в час; cron раз в 15 минут; фильтрация/скоринг без минимального бюджета; D1 dedup; черновики; уведомления/команды/статусы; rule-based intake; durable inbox/outbox; backoff/квоты/leases; отчётность; ограниченный static audit; stop/delete; аварийное отключение.
 
-## Для продолжения
+Реальные заявки клиентов и реальные партнёры не обнаружены. Входящий опрос проверен интеграционными fixtures. Локализация персональных данных в D1 по 152-ФЗ не подтверждена, подробности SECURITY.md.
 
-Cloudflare API_TOKEN/ACCOUNT_ID через защищённые secrets; BotFather revoke текущего токена из чата и новый token через secrets. После этого guarded deploy → webhook/owner smoke → следующий cron → production CPU/quota verification. Нельзя назвать эти шаги выполненными заранее.
+## Материальные ограничения
+
+Workers Free CPU опубликован как 10 ms. В tail первый сбор использовал 72 ms, повтор со static audit — 38 ms, cron с отправками — 21 ms; все outcome=ok. Cloudflare допускает отдельные превышения, но может прекращать регулярные; устойчивость не доказана. Увеличение платного CPU не выполнялось.
+
+OAuth `/subscriptions` даёт 403. Первичный bootstrap разрешён только по новому пустому аккаунту (<24h), пустым entitlements/scripts/databases. Это косвенное свидетельство бесплатной начальной настройки, не независимая проверка тарифа/счёта. Повторный guarded deploy требует Billing Read; оплаченные планы не создаются.
+
+FL monitoring выключен по robots; Freelance/Weblancer/Habr API/RSS не подтверждены. Telegram-группы, Threads/VK/личный Telegram аккаунт не подключены. Исходящих transport нет, cold outreach — только черновики. Редактирование основного сайта не выполнялось.
+
+Последние проверки: TEST_RESULTS.md. Не завершённые пункты: TASK_QUEUE.md и BUGS.md.

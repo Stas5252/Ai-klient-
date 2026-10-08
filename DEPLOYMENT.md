@@ -1,10 +1,14 @@
 # Развёртывание и восстановление
 
+## Вход без передачи API-токена
+
+Wrangler 4.148 поддерживает `npx wrangler login --device --scopes account:read user:read workers_scripts:write workers_tail:read d1:write`. Команда выдаёт одноразовую ссылку Cloudflare; владелец подтверждает доступ в браузере, секреты в чат не передаются. У нас этот вход подтверждён 08.10.2026. OAuth не даёт Billing Read: для первичного развёртывания проверен новый пустой аккаунт (<24h), пустые entitlements, scripts и databases. Это узкая bootstrap-проверка, **не независимое подтверждение тарифа через billing**. Для существующих аккаунтов deploy guard отказывает. Повторный guard deploy требует Billing Read через scoped API token, без отключения защиты.
+
 ## Необходимые действия владельца
 
 1. В Cloudflare создайте/используйте account на **Workers Free**, D1 Free. Карту и платный тариф не подключать. Account ID виден в панели Workers/D1.
 2. Создайте API token с Workers Scripts Edit, D1 Edit, Account Settings Read (если требуется CLI), **Account Billing Read для /subscriptions**; scope — только нужный account. Секретный токен в защищённые secrets рабочего окружения: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`.
-3. Telegram @BotFather `/newbot`. Токен, отправленный в чат 08.10.2026, следует заменить через `/revoke` перед постоянной эксплуатацией. Новый token — в secret `TELEGRAM_BOT_TOKEN`, никогда не в чат/репозиторий.
+3. Telegram @BotFather `/newbot`. Token — в Cloudflare Secret `TELEGRAM_BOT_TOKEN`, никогда не в репозиторий. Существующий бот подключён; новый не нужен.
 4. Откройте бота своим аккаунтом и `/start`. Сохраните numeric `ADMIN_IDS` и `ADMIN_CHAT_ID` в секретах; usernames недостаточно для авторизации. Текущий владелец был проверен через getUpdates и @Butov52, ID не публикуется.
 5. Создайте 3 случайных секрета ≥24 символов: `TELEGRAM_WEBHOOK_SECRET`, `ADMIN_API_KEY`, `SUPPRESSION_SALT`. Можно локально `openssl rand -hex 32`, затем в закрытые secrets; не в issue или README.
 
@@ -20,7 +24,7 @@ npm run deploy
 
 Для deploy secrets должны быть **переменными процесса**; `.dev.vars` Wrangler используется для локального Worker, deployment script её автоматически не импортирует. Это специально исключает случайную загрузку токена из файла. Рабочий runtime может быть выдан секретами через настройки окружения.
 
-Скрипт сначала проверяет все обязательные поля и account billing через официальный API. Если доступ к billing не предоставлен или обнаружен платный/неизвестный Workers plan — fail closed, ничего не покупает. Создаёт только D1 database при необходимости, записывает её UUID в wrangler.jsonc, применяет миграции, загружает secrets bulk через stdin, deploy, setWebhook secret, setMyCommands и GET /health. **Не считать проект готовым только по успешному deploy.**
+Скрипт сначала проверяет все обязательные поля и account billing через официальный API. При закрытом billing допускается только новый пустой аккаунт по указанным выше признакам; иначе fail closed. Платный/неизвестный обнаруженный Workers plan отклоняется. Скрипт ничего не покупает: создаёт D1 database при необходимости, записывает UUID в wrangler.jsonc, применяет миграции, deploy, загружает secrets bulk через stdin, setWebhook secret, setMyCommands и GET /health. **Не считать проект готовым только по успешному deploy.**
 
 BUSINESS_BBOX (одна маленькая область) и TELEGRAM_GROUP_IDS опциональны. Добавляйте через vars/private конфигурацию. OpenStreetMap не охватывает все компании РФ и не подтверждает отсутствие сайта. Для groups бот должен быть добавлен и использование разрешено администратором. Отключение источника — `enabled:false` + redeploy; состояние/пауза живут в D1.
 
@@ -46,3 +50,7 @@ BUSINESS_BBOX (одна маленькая область) и TELEGRAM_GROUP_IDS
 `/pause` — остановить поиск, бот продолжает отвечать. `/shutdown` — остановить поиск и все отправки. `/restart` — включить снова. Для полного удаления остановите cron/Worker в Cloudflare и удалите webhook. Отозвать bot token — BotFather revoke; Cloudflare token — панель API tokens.
 
 Обновление: git pull → npm ci → tests/typecheck/build → при необходимости migration → guarded deploy. Откат: Cloudflare deployments rollback к проверенной версии, учитывая обратную совместимость миграций. Секреты в резервную копию конфигурации не входят.
+
+## Подключение Telegram без раскрытия токена исполнителю
+
+Сохранить `TELEGRAM_BOT_TOKEN` прямо в Variables and Secrets → Secret на странице Worker. Затем исполнитель вызывает защищённый `POST /api/connect-telegram`: Worker сам вызывает getMe/setWebhook/setMyCommands. `GET /api/telegram-status` возвращает только URL/pending/error flag, без токена. Текущий токен оставлен по прямому указанию владельца; в git/logs его нет.

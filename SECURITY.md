@@ -2,7 +2,7 @@
 
 ## Доступ
 
-Telegram webhook проверяет X-Telegram-Bot-Api-Secret-Token; numeric whitelist admin, private chats only для CRM. API закрыт Bearer ADMIN_API_KEY. Public /health показывает только alive; подробные CRM/export/health только admin. Не давайте токен BotFather другим пользователям. Токен, попавший в чат, следует отозвать перед production.
+Telegram webhook проверяет X-Telegram-Bot-Api-Secret-Token; numeric whitelist admin, private chats only для CRM. API закрыт Bearer ADMIN_API_KEY. Public /health показывает только alive; подробные CRM/export/health только admin. Текущий bot token сохранён в Cloudflare Secret по прямому указанию владельца; значение не опубликовано в git или логах. Отзыв доступен через BotFather `/revoke`.
 
 `.dev.vars`, .env, private/, *.private.* исключены из git. Репозиторий сейчас публичный, содержит только исходники/тесты/агрегаты. Ни телефон автора сайта, ни CRM, ни сырые RSS и заявки не публикуются. Система не выполняет shell, JS и инструкции из постов. Черновики с подозрительными инструкциями не формируются.
 

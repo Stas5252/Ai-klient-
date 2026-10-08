@@ -3,6 +3,7 @@ import {Store} from './storage';
 import {drainInbox,run} from './scheduler';
 import {flush} from './telegram_bot';
 import {budgetedFetch} from './request_budget';
+import {connectTelegram,telegramStatus} from './telegram_connection';
 const json=(value:unknown,status=200)=>new Response(JSON.stringify(value),{status,headers:{'Content-Type':'application/json;charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
 export default {
  async fetch(req:Request,env:Env,ctx:ExecutionContext):Promise<Response>{const url=new URL(req.url);const s=new Store(env.DB);
@@ -15,7 +16,9 @@ export default {
    try{await s.db.prepare('INSERT OR IGNORE INTO inbox(id,payload,created_at) VALUES(?,?,?)').bind(u.update_id,JSON.stringify(u),Date.now()).run();await drainInbox(s,env);await flush(s,env,budgetedFetch(s,env));return json({ok:true});}catch{console.error(JSON.stringify({code:'webhook_storage_failed'}));return json({error:'temporarily_unavailable'},503);}
   }
   if(url.pathname.startsWith('/api/')){if(!env.ADMIN_API_KEY||req.headers.get('Authorization')!==`Bearer ${env.ADMIN_API_KEY}`)return json({error:'unauthorized'},401);
-   try{if(url.pathname==='/api/export'&&req.method==='GET'){const cursor=url.searchParams.get('cursor')||'';const rows=await s.db.prepare('SELECT * FROM leads WHERE id>? ORDER BY id LIMIT 100').bind(cursor).all<any>();return json({leads:rows.results.map(r=>s.decode(r)),nextCursor:rows.results.length===100?rows.results.at(-1).id:null});}
+   try{if(url.pathname==='/api/connect-telegram'&&req.method==='POST')return json(await connectTelegram(env,url.origin,budgetedFetch(s,env)));
+    if(url.pathname==='/api/telegram-status'&&req.method==='GET')return json(await telegramStatus(env,budgetedFetch(s,env)));
+    if(url.pathname==='/api/export'&&req.method==='GET'){const cursor=url.searchParams.get('cursor')||'';const rows=await s.db.prepare('SELECT * FROM leads WHERE id>? ORDER BY id LIMIT 100').bind(cursor).all<any>();return json({leads:rows.results.map(r=>s.decode(r)),nextCursor:rows.results.length===100?rows.results.at(-1).id:null});}
     if(url.pathname==='/api/health')return json({lastTick:await s.get('last_tick','never'),lastRun:await s.get('last_run','none'),paused:await s.get('paused'),outboundStopped:await s.get('outbound_stopped')});
     if(url.pathname==='/api/run'&&req.method==='POST')return json(await run(env));
    }catch{return json({error:'temporarily_unavailable'},503);}

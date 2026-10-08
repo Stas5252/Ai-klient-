@@ -1,0 +1,81 @@
+{
+  "checkedDate": "2026-10-08",
+  "worker": "https://web-lead-machine.stas5252-leads-9fb8e2.workers.dev",
+  "bot": "https://t.me/StanislawWeb_bot",
+  "events": [
+    {
+      "timestamp": "2026-10-08T06:39:34.335000+00:00",
+      "outcome": "ok",
+      "cpuMs": 72,
+      "wallMs": 4549,
+      "cron": null,
+      "summaries": [
+        {
+          "event": "scheduled_run",
+          "inspected": 50,
+          "qualified": 6,
+          "inserted": 6,
+          "rejected": 44,
+          "audits": 0,
+          "notifications": 3,
+          "state": "ok",
+          "at": 1791441574335
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-10-08T06:46:00.013000+00:00",
+      "outcome": "ok",
+      "cpuMs": 21,
+      "wallMs": 3848,
+      "cron": "*/15 * * * *",
+      "summaries": [
+        {
+          "event": "scheduled_run",
+          "inspected": 0,
+          "qualified": 0,
+          "inserted": 0,
+          "rejected": 0,
+          "audits": 0,
+          "notifications": 3,
+          "state": "ok",
+          "at": 1791441959000
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-10-08T06:49:23.119000+00:00",
+      "outcome": "ok",
+      "cpuMs": 38,
+      "wallMs": 3870,
+      "cron": null,
+      "summaries": [
+        {
+          "event": "scheduled_run",
+          "inspected": 50,
+          "qualified": 6,
+          "inserted": 0,
+          "rejected": 44,
+          "audits": 1,
+          "notifications": 0,
+          "state": "ok",
+          "at": 1791442163119
+        }
+      ]
+    }
+  ],
+  "verifiedUniqueCandidates": 6,
+  "productionOwnerMessagesAtLastSqlCheck": 12,
+  "earlierLocalOwnerMessages": 7,
+  "thirdPartyMessages": 0,
+  "partners": 0,
+  "businessCandidatesLocalOnly": 10,
+  "verifiedNoWebsite": 0,
+  "cloudAudit": {
+    "url": "https://stanislavweb.ru/",
+    "state": "ok",
+    "confirmedProblems": 0
+  },
+  "billingApi": "403; fresh-empty-account bootstrap, no subscription/card mutations",
+  "limitation": "Observed CPU exceeds published Free10ms despite outcomeok. Long-term stability unverified."
+}
