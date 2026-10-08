@@ -1,0 +1,35 @@
+{
+  "checkedAt": "2026-10-08T06:17:32.686Z",
+  "environment": "local execution with persistent private SQLite, NOT deployed",
+  "firstRun": {
+    "inspected": 50,
+    "qualified": 6,
+    "inserted": 6,
+    "rejected": 44,
+    "audits": 0,
+    "notifications": 3,
+    "state": "ok"
+  },
+  "repeatRun": {
+    "inspected": 0,
+    "qualified": 0,
+    "inserted": 0,
+    "rejected": 0,
+    "audits": 0,
+    "notifications": 3,
+    "state": "ok"
+  },
+  "storedLeads": 6,
+  "orders": 6,
+  "partners": 0,
+  "businesses": 0,
+  "ownerNotifications": 6,
+  "thirdPartyMessages": 0,
+  "audit": {
+    "state": "ok",
+    "confirmedProblems": [],
+    "notes": [
+      "Только статический HTML; формы и корзина не отправлялись, JS/скорость/дизайн не проверены."
+    ]
+  }
+}

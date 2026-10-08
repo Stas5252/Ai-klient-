@@ -1,0 +1,98 @@
+[
+  {
+    "url": "https://www.fl.ru/rss/all.xml",
+    "status": 200,
+    "content_type": "application/rss+xml",
+    "bytes": 73524,
+    "checked_at": "2026-10-08T05:49:18.745137+00:00"
+  },
+  {
+    "url": "https://www.fl.ru/robots.txt",
+    "status": 200,
+    "content_type": "text/plain",
+    "bytes": 6580,
+    "checked_at": "2026-10-08T05:49:18.825975+00:00"
+  },
+  {
+    "url": "https://freelance.ru/rss.xml",
+    "error": "HTTPError",
+    "detail": "HTTP Error 404: Not Found",
+    "checked_at": "2026-10-08T05:49:17.664173+00:00"
+  },
+  {
+    "url": "https://freelance.ru/projects/?rss=1",
+    "status": 200,
+    "content_type": "text/html; charset=UTF-8",
+    "bytes": 104915,
+    "checked_at": "2026-10-08T05:49:19.446104+00:00"
+  },
+  {
+    "url": "https://www.weblancer.net/jobs/rss/",
+    "error": "HTTPError",
+    "detail": "HTTP Error 404: Not Found",
+    "checked_at": "2026-10-08T05:49:16.984779+00:00"
+  },
+  {
+    "url": "https://www.weblancer.net/jobs/",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 281326,
+    "checked_at": "2026-10-08T05:49:17.784116+00:00"
+  },
+  {
+    "url": "https://www.weblancer.net/robots.txt",
+    "status": 200,
+    "content_type": "text/plain",
+    "bytes": 717,
+    "checked_at": "2026-10-08T05:49:17.782672+00:00"
+  },
+  {
+    "url": "https://freelance.ru/robots.txt",
+    "status": 200,
+    "content_type": "text/plain; charset=windows-1251",
+    "bytes": 1955,
+    "checked_at": "2026-10-08T05:49:17.963999+00:00"
+  },
+  {
+    "url": "https://t.me/s/web_work",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 9604,
+    "checked_at": "2026-10-08T05:49:18.727237+00:00"
+  },
+  {
+    "url": "https://t.me/s/freelance_orders",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 85702,
+    "checked_at": "2026-10-08T05:49:19.132022+00:00"
+  },
+  {
+    "url": "https://core.telegram.org/bots/faq",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 20116,
+    "checked_at": "2026-10-08T05:49:19.450717+00:00"
+  },
+  {
+    "url": "https://developers.cloudflare.com/workers/platform/pricing/",
+    "status": 200,
+    "content_type": "text/html",
+    "bytes": 284709,
+    "checked_at": "2026-10-08T05:49:18.856062+00:00"
+  },
+  {
+    "url": "https://developers.cloudflare.com/d1/platform/pricing/",
+    "status": 200,
+    "content_type": "text/html",
+    "bytes": 127688,
+    "checked_at": "2026-10-08T05:49:18.928160+00:00"
+  },
+  {
+    "url": "https://stanislavweb.ru/",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 46183,
+    "checked_at": "2026-10-08T05:49:19.822024+00:00"
+  }
+]
