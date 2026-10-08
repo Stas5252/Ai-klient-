@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS leases (key TEXT PRIMARY KEY,owner TEXT NOT NULL,expi
 CREATE TABLE IF NOT EXISTS quotas (key TEXT PRIMARY KEY,used INTEGER NOT NULL);
 CREATE TABLE IF NOT EXISTS inbox (id INTEGER PRIMARY KEY, payload TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'pending', created_at INTEGER NOT NULL);
 CREATE INDEX IF NOT EXISTS inbox_status ON inbox(status,created_at);
-CREATE TABLE IF NOT EXISTS outbox (id TEXT PRIMARY KEY, chat_id TEXT NOT NULL, text TEXT NOT NULL, keyboard TEXT, status TEXT NOT NULL DEFAULT 'pending', attempts INTEGER NOT NULL DEFAULT 0, next_attempt INTEGER NOT NULL DEFAULT 0, created_at INTEGER NOT NULL, error TEXT, message_id INTEGER);
+CREATE TABLE IF NOT EXISTS outbox (id TEXT PRIMARY KEY, chat_id TEXT NOT NULL, text TEXT NOT NULL, keyboard TEXT, status TEXT NOT NULL DEFAULT 'pending', attempts INTEGER NOT NULL DEFAULT 0, next_attempt INTEGER NOT NULL DEFAULT 0, created_at INTEGER NOT NULL, error TEXT, message_id INTEGER, subject_contact TEXT);
 CREATE INDEX IF NOT EXISTS outbox_pending ON outbox(status,next_attempt);
 CREATE TABLE IF NOT EXISTS inbound_sessions (chat_id TEXT PRIMARY KEY, step INTEGER NOT NULL, data TEXT NOT NULL, opted_out INTEGER NOT NULL DEFAULT 0, updated_at INTEGER NOT NULL);
 CREATE TABLE IF NOT EXISTS suppression (contact_hash TEXT PRIMARY KEY,created_at INTEGER NOT NULL);

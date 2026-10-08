@@ -12,9 +12,6 @@
     "live": "tsx scripts/live-check.ts",
     "health": "node scripts/health.mjs"
   },
-  "dependencies": {
-    "fast-xml-parser": "^5.3.0"
-  },
   "devDependencies": {
     "@cloudflare/workers-types": "5.20261008.1",
     "miniflare": "^4.20260730.0",

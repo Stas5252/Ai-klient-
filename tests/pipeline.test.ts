@@ -39,3 +39,4 @@ describe('board qualification precision',()=>{
  it('marketing request mentioning website excluded',()=>expect(qualify(item('Комплексный маркетинг сайта школ', {text:'Нужен маркетолог, SEO и продвижение сайта.'}),source,now)).toBeNull());
  it('budget range preserves lower and upper limits',()=>{const l=qualify(item('Нужен сайт. Бюджет: от 800 000 до 3 000 000 руб'),source,now)!;expect(l.budget).toBe(800000);expect(l.budgetMax).toBe(3000000);});
 });
+it('bounded RSS extraction caps entries before expensive parsing',()=>{const xml='<rss><channel>'+Array.from({length:1800},(_,i)=>`<item><title>Нужен сайт ${i}</title><description>Сделать каталог</description><link>https://example.com/${i}</link></item>`).join('')+'</channel></rss>';expect(parseRss(xml,source)).toHaveLength(60);});

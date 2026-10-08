@@ -17,7 +17,7 @@ config.d1_databases[0].database_id=database.uuid;writeFileSync('wrangler.jsonc',
 function wrangler(args,input){const p=spawnSync('npx',['--no-install','wrangler',...args],{input,encoding:'utf8',env:{...process.env,WRANGLER_SEND_METRICS:'false'}});if(p.status!==0)fail('Wrangler завершился ошибкой. Сырой вывод скрыт, чтобы не раскрыть секреты. Повторите отдельный шаг по DEPLOYMENT.md.');return p.stdout;}
 wrangler(['d1','migrations','apply','web-lead-machine','--remote']);
 const secrets=Object.fromEntries(required.filter(k=>!k.startsWith('CLOUDFLARE_')).map(k=>[k,process.env[k]]));
-wrangler(['secret','bulk'],JSON.stringify(secrets));const output=wrangler(['deploy']);const deployment=output.match(/https:\/\/[a-z0-9.-]+\.workers\.dev/i)?.[0];
+const output=wrangler(['deploy']);wrangler(['secret','bulk'],JSON.stringify(secrets));const deployment=output.match(/https:\/\/[a-z0-9.-]+\.workers\.dev/i)?.[0];
 if(!deployment)fail('Worker опубликован, URL не распознан. Проверьте панель Cloudflare и установите webhook вручную.');
 async function telegram(method,data){try{const r=await fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/${method}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});const j=await r.json();if(!j.ok)fail('Telegram '+method+' не выполнен; код '+j.error_code);return j.result;}catch{fail('Telegram API недоступен.');}}
 await telegram('setWebhook',{url:deployment+'/webhook',secret_token:process.env.TELEGRAM_WEBHOOK_SECRET,allowed_updates:['message','callback_query','channel_post']});

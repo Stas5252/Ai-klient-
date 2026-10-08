@@ -6,7 +6,7 @@ export async function getText(url:string,fetcher:Fetcher=fetch,attempts=2):Promi
   try{const r=await fetcher(url,{redirect:'manual',signal:AbortSignal.timeout(8000),headers:{'User-Agent':'WebLeadMachine/0.1 (+https://stanislavweb.ru/)'}});
    if(r.status===429||r.status>=500){await r.body?.cancel();throw new HttpFailure('http_'+r.status,Math.max(0,Number(r.headers.get('retry-after')||0))*1000);}
    const text=await readLimited(r);return {text,status:r.status,contentType:r.headers.get('content-type')||'',url};
-  }catch(e){if(i===attempts-1)throw e instanceof HttpFailure?e:new HttpFailure('network_uncertain');await new Promise(r=>setTimeout(r,150*2**i));}
+  }catch(e){if(e instanceof HttpFailure&&!/^http_(?:429|5\d\d)$/.test(e.code))throw e;if(i===attempts-1)throw e instanceof HttpFailure?e:new HttpFailure('network_uncertain');await new Promise(r=>setTimeout(r,150*2**i));}
  }
  throw new HttpFailure('network_uncertain');
 }
