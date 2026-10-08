@@ -7,3 +7,5 @@ private/
 *.private.*
 .superpowers/
 dist/
+
+research/https_*.txt

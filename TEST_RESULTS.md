@@ -14,6 +14,7 @@
 | Реальный аудит stanislavweb.ru | state ok, подтверждённых проблем 0 по реализованным static checks |
 | Реальный Overpass | 10 public business candidates, 0 verified website need, 0 личных контактов |
 | Реальный Telegram API | getMe OK, owner private /start matched, test sendMessage OK message_id2 + 6 real pipeline уведомлений, всего7 |
+| GitHub CI | SUCCESS, https://github.com/Stas5252/Ai-klient-/actions/runs/37736888092 для кода66d3cac |
 | Production deploy | НЕ ВЫПОЛНЕН: Cloudflare secrets отсутствуют |
 | Production webhook / следующий cron / CPU | НЕ ПОДТВЕРЖДЕНЫ |
 
