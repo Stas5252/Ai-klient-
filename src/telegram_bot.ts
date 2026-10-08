@@ -1,0 +1,38 @@
+import type {Env,Fetcher,Lead} from './types';
+import {Store} from './storage';
+import {inbound} from './inbound_manager';
+import {report} from './analytics';
+import {sources} from './source_registry';
+export function isAdmin(env:Env,id:unknown):boolean{return typeof id==='number'&&(env.ADMIN_IDS||'').split(',').map(x=>x.trim()).includes(String(id));}
+export function card(l:Lead):string{return `${l.category==='partner'?'ПАРТНЁР':l.category==='business'?'АУДИТ':'ЗАКАЗ'} • ${l.priority} • ${l.score}/100\n${l.title}\nИсточник: ${l.sourceId}\nБюджет: ${l.budget===null?'не указан':(l.budgetKind==='up_to'?'до ':l.budgetKind==='from'?'от ':'')+l.budget+(l.budgetMax?'–'+l.budgetMax:'')+' ₽'}\nДата: ${l.publishedAt?new Date(l.publishedAt).toISOString():'не подтверждена'}\n${l.url}\n${l.reasons.join('; ')}\n\nЧерновик (сначала проверить):\n${l.message}`.slice(0,3800);}
+export function buttons(l:Lead){return {inline_keyboard:[[{text:'Открыть заказ',url:l.url},{text:'Показать текст',callback_data:`draft:${l.id}`}],[{text:'В работе',callback_data:`working:${l.id}`},{text:'Отказ',callback_data:`rejected:${l.id}`}],[{text:'Клиент ответил',callback_data:`answered:${l.id}`},{text:'Договорились',callback_data:`agreed:${l.id}`}],[{text:'Оплачено',callback_data:`paid:${l.id}`},{text:'Больше не показывать',callback_data:`hide:${l.id}`}],[{text:'Сообщить об ошибке',callback_data:`error:${l.id}`}]]};}
+export async function flush(s:Store,env:Env,fetcher:Fetcher=fetch):Promise<number>{
+ if(!env.TELEGRAM_BOT_TOKEN||await s.get('outbound_stopped')==='1')return 0;
+ const rows=await s.db.prepare("SELECT * FROM outbox WHERE status='pending' AND next_attempt<=? ORDER BY created_at LIMIT 3").bind(Date.now()).all<any>();let sent=0;
+ for(const x of rows.results){const claim=await s.db.prepare("UPDATE outbox SET status='sending',attempts=attempts+1 WHERE id=? AND status='pending'").bind(x.id).run();if(!claim.meta.changes)continue;
+  try{const response=await fetcher(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`,{method:'POST',signal:AbortSignal.timeout(8000),headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:x.chat_id,text:x.text,disable_web_page_preview:true,...(x.keyboard?{reply_markup:JSON.parse(x.keyboard)}:{})})});const result=await response.json() as any;
+   if(result.ok){await s.db.prepare("UPDATE outbox SET status='sent',message_id=?,error=NULL WHERE id=?").bind(result.result.message_id,x.id).run();sent++;}
+   else{const retry=result.error_code===429&&x.attempts<4;await s.db.prepare('UPDATE outbox SET status=?,next_attempt=?,error=? WHERE id=?').bind(retry?'pending':'failed',Date.now()+Math.max(60,result.parameters?.retry_after||0)*1000,'telegram_'+Number(result.error_code||response.status),x.id).run();}
+  }catch{await s.db.prepare("UPDATE outbox SET status='unknown',error='telegram_delivery_uncertain' WHERE id=?").bind(x.id).run();}
+ }
+ return sent;
+}
+const help='/new /best /business /partners /stats /today /health /pause /resume /sources /settings /export\n/audit https://example.ru — ограниченный аудит\n/shutdown — отключить поиск и сообщения\n/restart — включить\nКнопки меняют статус; исходящие предложения не отправляются.';
+export async function handleUpdate(s:Store,env:Env,u:any):Promise<void>{
+ const cb=u.callback_query,m=u.message??u.channel_post;if(!m&&!cb)return;const actor=cb?.from??m?.from;const chat=String(cb?.message?.chat?.id??m?.chat?.id??'');const text=String(m?.text??'').slice(0,6000);const privateChat=(cb?.message?.chat?.type??m?.chat?.type)==='private';
+ if(!privateChat){ // Source collection only in configured groups/channels, never replies there.
+  if((env.TELEGRAM_GROUP_IDS||'').split(',').includes(chat)&&text){const {qualify}=await import('./validator');const {sources}=await import('./source_registry');const source={...sources.find(x=>x.id==='telegram-group')!,enabled:true,policy:'monitor' as const};const lead=qualify({title:text.slice(0,140),text,url:m.chat.username?`https://t.me/${m.chat.username}/${m.message_id}`:`https://t.me/c/${chat.replace(/^-100/,'')}/${m.message_id}`,sourceId:'telegram-group',publishedAt:m.date*1000},source);if(lead&&await s.insertLead(lead)&&env.ADMIN_CHAT_ID)await s.enqueue(`lead:${lead.id}`,env.ADMIN_CHAT_ID,card(lead),buttons(lead));}return;
+ }
+ if(!isAdmin(env,actor?.id)){if(cb)return;if(/^\/(new|best|business|partners|stats|today|health|pause|resume|sources|settings|export|shutdown|restart|audit)\b/.test(text)){await s.error('unauthorized_admin');await s.enqueue(`deny:${u.update_id}`,chat,'Эта команда доступна только владельцу. Для заявки используйте /start.');return;}await inbound(s,env,chat,text,u.update_id);return;}
+ if(cb){const [action,id]=String(cb.data??'').split(':');const l=await s.getLead(id);if(!l)return;if(action==='draft'){await s.enqueue(`cb:${cb.id}`,chat,l.message);return;}if(action==='hide')await s.suppress(id);else if(['working','rejected','answered','agreed','paid','error'].includes(action))await s.setStatus(id,action);else return;await s.enqueue(`cb:${cb.id}`,chat,'Статус обновлён: '+action);return;}
+ const cmd=text.split(/\s/)[0].split('@')[0];
+ if(cmd==='/start'||cmd==='/help'){await s.enqueue(`admin:${u.update_id}`,chat,'Web Lead Machine — центр управления.\n'+help);return;}
+ if(['/pause','/resume','/shutdown','/restart'].includes(cmd)){await s.set('paused',cmd==='/pause'||cmd==='/shutdown'?'1':'0');if(cmd==='/shutdown'||cmd==='/restart')await s.set('outbound_stopped',cmd==='/shutdown'?'1':'0');if(cmd==='/shutdown')return;await s.enqueue(`admin:${u.update_id}`,chat,'Режим обновлён: '+cmd);return;}
+ if(['/new','/best','/business','/partners'].includes(cmd)){const ls=await s.list(cmd==='/new'?'new':cmd==='/business'?'business':cmd==='/partners'?'partner':undefined,5);if(!ls.length)await s.enqueue(`admin:${u.update_id}`,chat,'Пока нет подходящих записей.');for(const l of ls)await s.enqueue(`view:${u.update_id}:${l.id}`,chat,card(l),buttons(l));return;}
+ if(cmd==='/sources'){const states=await s.db.prepare('SELECT * FROM source_state').all<any>();await s.enqueue(`admin:${u.update_id}`,chat,sources.map(x=>`${x.name}: ${x.enabled?'включён':'отключён'}, ${x.notes}`).join('\n')+'\nПоследние проверки: '+states.results.map(x=>`${x.id}: ${x.error||'OK'}, ${x.last_checked?new Date(x.last_checked).toISOString():'нет'}`).join('; '));return;}
+ if(cmd==='/stats'||cmd==='/today'){await s.enqueue(`admin:${u.update_id}`,chat,await report(s,cmd==='/today'?Date.parse(new Date().toISOString().slice(0,10)):0));return;}
+ if(cmd==='/health'||cmd==='/settings'){await s.enqueue(`admin:${u.update_id}`,chat,`Пауза: ${await s.get('paused')}; исходящие остановлены: ${await s.get('outbound_stopped')}\nПоследний тик: ${await s.get('last_tick','ещё не было')}\nДневной лимит источников: ${env.MAX_SOURCE_REQUESTS_DAY||200}\nCold outreach: только черновики. Платных API нет.`);return;}
+ if(cmd==='/export'){await s.enqueue(`admin:${u.update_id}`,chat,'Экспорт JSON доступен владельцу через GET /api/export с Bearer ADMIN_API_KEY. База никогда не публикуется.');return;}
+ if(cmd==='/audit'){const url=text.split(/\s+/)[1];const {safeUrl}=await import('./website_auditor');if(!url||!safeUrl(url)){await s.enqueue(`admin:${u.update_id}`,chat,'Нужен публичный URL http(s), без приватных адресов.');return;}await s.db.prepare('INSERT OR IGNORE INTO audit_jobs(url,company) VALUES(?,?)').bind(url,new URL(url).hostname).run();await s.enqueue(`admin:${u.update_id}`,chat,'Сайт поставлен в очередь безопасного аудита. Это не разрешение на рекламное сообщение.');return;}
+ await s.enqueue(`admin:${u.update_id}`,chat,help);
+}

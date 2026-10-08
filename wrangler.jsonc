@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "web-lead-machine",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-08",
+  "workers_dev": true,
+  "triggers": {"crons": ["*/15 * * * *"]},
+  "vars": {"MAX_SOURCE_REQUESTS_DAY": "200", "RETENTION_DAYS": "90"},
+  "d1_databases": [{"binding": "DB", "database_name": "web-lead-machine", "database_id": "00000000-0000-0000-0000-000000000000", "migrations_dir": "migrations"}],
+  "observability": {"enabled": true, "head_sampling_rate": 1}
+}

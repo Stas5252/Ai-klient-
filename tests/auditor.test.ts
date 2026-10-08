@@ -1,0 +1,13 @@
+import {it,expect} from 'vitest';
+import {safeUrl,robotsAllow,auditHtml,audit,verifyNoWebsite} from '../src/website_auditor';
+import {getText} from '../src/http';
+it.each(['http://localhost/','http://127.0.0.1/','http://169.254.169.254/','http://10.0.0.1/','http://[::1]/','http://[::ffff:127.0.0.1]/','file:///etc/passwd','https://user:pass@example.com','http://2130706433/','http://192.168.1.1/'])('blocks unsafe %s',u=>expect(safeUrl(u)).toBeNull());
+it('public website allowed',()=>expect(safeUrl('https://stanislavweb.ru/')).not.toBeNull());
+it('robots wildcard deny obeyed',()=>expect(robotsAllow('User-agent: *\nDisallow: /rss/','https://example.com/rss/all.xml')).toBe(false));
+it('robots more-specific allow wins',()=>expect(robotsAllow('User-agent: *\nDisallow: /\nAllow: /public/','https://example.com/public/page')).toBe(true));
+it('reports viewport evidence without inventing broken mobile',()=>{const p=auditHtml('<html><head><title>Сайт</title></head><body><h1>Сайт</h1></body></html>',1000);expect(p.some(x=>x.type==='viewport_missing'&&x.confirmed)).toBe(true);expect(p.some(x=>x.type==='broken_mobile')).toBe(false);});
+it('robots denial prevents page load',async()=>{const calls:string[]=[];const f=async(u:any)=>{calls.push(String(u));return new Response(String(u).includes('dns-query')?JSON.stringify({Status:0,Answer:[{type:1,data:'93.184.216.34'}]}):'User-agent: *\nDisallow: /');};const r=await audit('https://example.com',f as any);expect(r.state).toBe('blocked');expect(calls.filter(x=>x==='https://example.com/')).toHaveLength(0);});
+it('network error is unconfirmed',async()=>{const f=async()=>{throw Error('secret token should not escape');};const r=await audit('https://example.com',f as any);expect(r.state).toBe('uncertain');expect(r.problems.filter(x=>x.confirmed)).toHaveLength(0);expect(JSON.stringify(r)).not.toContain('secret');});
+it('safe GET retries temporary error',async()=>{let n=0;const f=async()=>++n===1?new Response('',{status:503}):new Response('ok');expect((await getText('https://example.com',f as any)).text).toBe('ok');expect(n).toBe(2);});
+it('other active website disproves no-site hypothesis',()=>expect(verifyNoWebsite([{kind:'directory',url:'https://directory.example',claim:'missing'},{kind:'official',url:'https://company.example',claim:'active'}]).state).toBe('has_website'));
+it('one missing directory field never proves absence',()=>expect(verifyNoWebsite([{kind:'directory',url:'https://directory.example',claim:'missing'}]).state).toBe('unverified'));

@@ -1,0 +1,26 @@
+{
+  "name": "web-lead-machine",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "dev": "wrangler dev",
+    "deploy": "node scripts/deploy.mjs",
+    "build": "wrangler deploy --dry-run --outdir dist",
+    "live": "tsx scripts/live-check.ts",
+    "health": "node scripts/health.mjs"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^5.3.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "5.20261008.1",
+    "miniflare": "^4.20260730.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0",
+    "vitest": "^4.1.0",
+    "wrangler": "^4.0.0"
+  }
+}
