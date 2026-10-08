@@ -62,6 +62,26 @@
           "at": 1791442163119
         }
       ]
+    },
+    {
+      "timestamp": "2026-10-08T07:01:14.354000+00:00",
+      "outcome": "ok",
+      "cpuMs": 36,
+      "wallMs": 7092,
+      "cron": "*/15 * * * *",
+      "summaries": [
+        {
+          "event": "scheduled_run",
+          "inspected": 50,
+          "qualified": 6,
+          "inserted": 0,
+          "rejected": 44,
+          "audits": 0,
+          "notifications": 0,
+          "state": "ok",
+          "at": 1791442859000
+        }
+      ]
     }
   ],
   "verifiedUniqueCandidates": 6,
@@ -77,5 +97,20 @@
     "confirmedProblems": 0
   },
   "billingApi": "403; fresh-empty-account bootstrap, no subscription/card mutations",
-  "limitation": "Observed CPU exceeds published Free10ms despite outcomeok. Long-term stability unverified."
+  "limitation": "Observed CPU exceeds published Free10ms despite outcomeok. Long-term stability unverified.",
+  "sourceCumulativeInspected": 150,
+  "sourceUniqueInitialPublications": 50,
+  "sourceNewLeads": 6,
+  "sourceLastChecked": "2026-10-08T07:00:59.000Z",
+  "sourceNextDue": "2026-10-08T08:00:59.000Z",
+  "productionErrorEvents": 0,
+  "dailyExternalHttpAttemptsAtCheck": 27,
+  "productionDatabaseBytes": 208896,
+  "originalCandidateLinksHttp200": 6,
+  "freeRepliesVerified": 0,
+  "privateBackupRestore": {
+    "bytes": 59348,
+    "uniqueLeads": 6
+  },
+  "codeCi": "https://github.com/Stas5252/Ai-klient-/actions/runs/37740267083"
 }

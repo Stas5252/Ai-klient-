@@ -5,6 +5,7 @@
 ## Доступ
 
 - GitHub: https://github.com/Stas5252/Ai-klient- . Публичный репозиторий содержит код, тестовые fixtures и агрегаты, без CRM/контактов/секретов.
+- GitHub CI для deployment-кода2a822f9: SUCCESS, https://github.com/Stas5252/Ai-klient-/actions/runs/37740267083 .
 - HTTP health: https://web-lead-machine.stas5252-leads-9fb8e2.workers.dev/health . Проверяет HTTP, не свежий сбор. Для программной проверки используйте User-Agent `WebLeadMachine/0.1`: Cloudflare может блокировать стандартный Python/Node UA кодом 1010.
 - Управление: https://t.me/StanislawWeb_bot . Numeric whitelist владельца установлен, ID не публикуется.
 - Панель: https://dash.cloudflare.com/9fb8e2fe6df89c2cf254b6d241a59f10/workers/services/view/web-lead-machine/production/settings . Требуется вход владельца.
@@ -15,6 +16,7 @@
 - Telegram getMe, setWebhook и setMyCommands успешны. `/api/telegram-status`: правильный URL webhook, pending=0, hasError=false.
 - Облачный ручной поиск 06:39:34 UTC: 50 inspected, 6 qualified/inserted, 44 rejected, notifications=3, state=ok. Это 6 кандидатов на проверку, не согласившиеся клиенты. Бесплатность конкретного отклика неизвестна.
 - **Настоящий Cron Trigger около 06:45 UTC**, `event.cron="*/15 * * * *"`, outcome=ok: inspected=0 (источник ещё не due), notifications=3. Фактический eventTimestamp в tail — 06:46:00 UTC. Запуск инициирован Cloudflare независимо от локальной команды.
+- **Второй настоящий cron около07:00UTC**: scheduledTime07:00:59, tail eventTimestamp07:01:14, outcomeok, inspected50/qualified6/inserted0/rejected44. Для этой приёмки source.next_run заранее сделан due; загрузка выполнена именно автономным Cloudflare event, не `/api/run`. Дальнейшая source.next_run08:00:59UTC, cron остаётся15мин. Общий inspected150 включает три просмотра той же выборки50, новых leads всего6.
 - Production webhook-команды `/health`, `/pause`, `/resume` проверены явно синтетическими owner-only updates с уникальными ID. Последнее состояние paused=0/outboundStopped=0; посторонние люди не участвовали.
 - Облачный повторный поиск + аудит 06:49:23 UTC: inspected=50, qualified=6, inserted=0, rejected=44, audits=1, state=ok. D1: 6 уникальных leads без дублей, sent=12, других состояний outbox нет. Эти сообщения — карточки, отчёт и owner-only проверки, не 12 разных лидов. Ещё 7 сообщений ранее доставлены владельцу из локальных проверок; всего 19 на момент этой проверки.
 - Реальный облачный read-only audit собственного stanislavweb.ru прошёл: state=ok, problems=[]; audit_jobs.status=done. Только реализованные static checks, не обещание отсутствия любых проблем.
@@ -29,7 +31,7 @@
 
 ## Материальные ограничения
 
-Workers Free CPU опубликован как 10 ms. В tail первый сбор использовал 72 ms, повтор со static audit — 38 ms, cron с отправками — 21 ms; все outcome=ok. Cloudflare допускает отдельные превышения, но может прекращать регулярные; устойчивость не доказана. Увеличение платного CPU не выполнялось.
+Workers Free CPU опубликован как 10 ms. В tail первый сбор использовал 72 ms, повтор со static audit — 38 ms, cron с отправками — 21 ms, второй cron со сбором — 36ms; все outcome=ok. Cloudflare допускает отдельные превышения, но может прекращать регулярные; устойчивость не доказана. Увеличение платного CPU не выполнялось. На07:02UTC: error events0, общий HTTP budget27/200, D1 размер208896bytes.
 
 OAuth `/subscriptions` даёт 403. Первичный bootstrap разрешён только по новому пустому аккаунту (<24h), пустым entitlements/scripts/databases. Это косвенное свидетельство бесплатной начальной настройки, не независимая проверка тарифа/счёта. Повторный guarded deploy требует Billing Read; оплаченные планы не создаются.
 

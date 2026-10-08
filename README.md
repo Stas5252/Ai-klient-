@@ -4,7 +4,7 @@
 
 **Рабочее ядро развёрнуто в Cloudflare; первый автономный cron подтверждён 08.10.2026 в 06:45 UTC.** Найдены 6 веб-кандидатов из 50 публикаций. Telegram webhook подключён, владельцу доставляются настоящие уведомления. Полное ТЗ ещё не закрыто: есть риск превышения CPU бесплатного тарифа и неподключённые источники. Состояние и доказательства: [CURRENT_STATE.md](CURRENT_STATE.md), [TEST_RESULTS.md](TEST_RESULTS.md).
 
-Сервис: https://web-lead-machine.stas5252-leads-9fb8e2.workers.dev/health . Управление: [@StanislawWeb_bot](https://t.me/StanislawWeb_bot). Публичный health проверяет доступность HTTP; актуальность сборщика показывает защищённый `/health` в Telegram.
+Сервис: https://web-lead-machine.stas5252-leads-9fb8e2.workers.dev/health . Управление: [@StanislawWeb_bot](https://t.me/StanislawWeb_bot). Публичный health проверяет доступность HTTP; актуальность сборщика показывает защищённый `/health` в Telegram. Полный отчёт: [REPORT.md](REPORT.md).
 
 ## Быстрый старт
 

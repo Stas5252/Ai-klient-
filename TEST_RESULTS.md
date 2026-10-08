@@ -14,15 +14,18 @@
 | Реальный аудит stanislavweb.ru | state ok, подтверждённых проблем 0 по реализованным static checks |
 | Реальный Overpass | 10 public business candidates, 0 verified website need, 0 личных контактов |
 | Реальный Telegram API | getMe OK, owner private /start matched, test sendMessage OK message_id2 + 6 real pipeline уведомлений, всего7 |
-| GitHub CI | SUCCESS, https://github.com/Stas5252/Ai-klient-/actions/runs/37736888092 для кода66d3cac |
+| GitHub CI | SUCCESS, https://github.com/Stas5252/Ai-klient-/actions/runs/37740267083 для deployment-кода2a822f9 |
 | Production deploy | Worker/D1 развёрнуты 06:36 UTC, миграции и Secrets установлены, health200 |
 | Production Telegram | webhook URL правильный, pending0/errorfalse; owner-only /health/pause/resume200 |
 | Production источник | 06:39 manual run:50/6/44; 06:49 повтор:50/6/44 inserted0 |
-| Production cron | Настоящий cron около06:45, eventTimestamp06:46:00, outcomeok, notifications3 |
+| Оригинальные ссылки кандидатов | 6из6 HTTP200; явных проверенных строк «Тендер закрыт» не найдено. Это не подтверждение бесплатного/открытого отклика |
+| Production cron | Настоящий cron около06:45, eventTimestamp06:46:00, outcomeok/notifications3; второй около07:00, timestamp07:01:14, outcomeok,50/6/0inserted/44 |
 | Production static audit | 06:49 stanislavweb.ru:done, stateok, problems0; сайт не изменялся |
 | Production D1/outbox | leads6/uniqueURLs6; sent12, нет pending/failed/unknown на06:51 |
-| Production CPU | 72ms first collection, 38ms repeat+audit, 21ms cron+send. Все outcomeok, но выше Free10ms; риск не закрыт |
+| Восстановление backup | Remote D1 SQL export59348bytes → in-memory SQLite; leads6, uniqueURLs6, uniqueContentKeys6. Backup только private/, chmod600, не git |
+| Production CPU | 72ms first collection,38ms repeat+audit,21ms cron+send,36ms scheduled collection. Все outcomeok, но выше Free10ms; риск не закрыт |
 | Billing API | OAuth /subscriptions403, entitlements[]. Нет authoritative Free проверки; bootstrap нового пустого аккаунта, покупок0 |
+| Production usage/error snapshot07:02 | error events0, externalHTTP27/200, D1size208896bytes, sourceinspected150повторных просмотров/6новых вставок |
 
 Агрегированные доказательства в research/*.json; сырые leads/briefings/SQLite — private/, не git. Во время проверки точности первоначальные 11 кандидатов были пересмотрены: 5 маркетинговых/неверно квалифицированных записей исключены. Финальные числа 6/44/0 partners.
 

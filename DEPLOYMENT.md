@@ -41,7 +41,7 @@ BUSINESS_BBOX (одна маленькая область) и TELEGRAM_GROUP_IDS
 
 `GET WORKER_URL/api/export` с header `Authorization: Bearer ADMIN_API_KEY` возвращает до 100 leads и `nextCursor`. Повторите с `?cursor=...`. Храните экспорт только локально/в приватном шифрованном хранилище, удаляйте по retention.
 
-Миграции проверяются на local D1. Перед изменением production схемы экспортируйте D1 средствами панели/CLI (`wrangler d1 export web-lead-machine --remote --output <закрытый путь>`); никогда не git add backup. Time Travel срок зависит от Free, сверить dashboard, не обещать длинную историю бесплатно. Автоматический удалённый backup не настроен.
+Миграции проверяются на local D1. Перед изменением production схемы экспортируйте D1 средствами панели/CLI (`wrangler d1 export web-lead-machine --remote --output <закрытый путь>`); никогда не git add backup. CLI может вывести временную подписанную download-ссылку: сохраняйте его stdout только в закрытый файл, не в публичный CI log. Экспорт кратковременно блокирует D1, выполняйте вне scheduled job. 08.10.2026 создан частный SQL backup, восстановление в локальную in-memory SQLite подтвердило6уникальных leads. Time Travel срок зависит от Free, сверить dashboard, не обещать длинную историю бесплатно. Автоматический удалённый backup не настроен.
 
 После временных сетевых сбоев backoff/leases восстанавливают запуск. Unknown Telegram sends проверяются вручную; не replay без проверки чата. Критические ошибки группируются в owner notifications, но при отказе Telegram уведомление тоже невозможно — нужен просмотр Cloudflare metrics.
 

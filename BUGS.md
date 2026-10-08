@@ -15,7 +15,7 @@
 
 ## Открытые эксплуатационные проблемы
 
-- Free Worker CPU10ms: production сбор72ms, повтор+аудит38ms, cron+3 отправки21ms. Outcomeok не доказывает устойчивость: Cloudflare может прекратить регулярные превышения. Требуется разделение/профилирование.
+- Free Worker CPU10ms: production сбор72ms, повтор+аудит38ms, cron+3 отправки21ms, повторный cron со сбором36ms. Outcomeok не доказывает устойчивость: Cloudflare может прекратить регулярные превышения. Требуется разделение/профилирование.
 - OAuth не даёт Billing Read (/subscriptions403). Bootstrap нового пустого аккаунта не является authoritative проверкой тарифа, повторный deploy guard не разрешает fallback для созданных ресурсов.
 - Ошибки сети после отправки Telegram могут означать доставку; unknown не replay, вручную проверить. Telegram API не имеет idempotency key.
 - DNS rebinding не исключён на 100%; не использовать runtime с доступом к приватной сети.
