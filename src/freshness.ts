@@ -1,0 +1,5 @@
+import type {Env,Lead} from './types';
+export function freshWindowMs(env:Env):number{const n=Number(env.FRESH_WINDOW_MINUTES??60);return (Number.isFinite(n)&&n>0?Math.max(5,Math.min(1440,n)):60)*60000;}
+export function isFresh(lead:Pick<Lead,'publishedAt'>,now:number,env:Env):boolean{return typeof lead.publishedAt==='number'&&Number.isFinite(lead.publishedAt)&&lead.publishedAt<=now&&now-lead.publishedAt<=freshWindowMs(env);}
+export function isFreshFreeLead(lead:Lead,now:number,env:Env):boolean{return lead.isFreeReply===true&&isFresh(lead,now,env)&&!lead.doNotContact;}
+export function ageLabel(lead:Pick<Lead,'publishedAt'>,now=Date.now()):string{if(typeof lead.publishedAt!=='number'||!Number.isFinite(lead.publishedAt))return 'дата не подтверждена';if(lead.publishedAt>now)return 'дата в будущем — перепроверить';const minutes=Math.floor((now-lead.publishedAt)/60000);if(minutes<1)return 'менее минуты назад';if(minutes<60)return `${minutes} минут назад`;if(minutes<1440)return `${Math.floor(minutes/60)} часов назад`;return `${Math.floor(minutes/1440)} дней назад`;}

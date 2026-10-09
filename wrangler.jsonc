@@ -10,7 +10,8 @@
     ]
   },
   "vars": {
-    "MAX_SOURCE_REQUESTS_DAY": "200",
+    "MAX_SOURCE_REQUESTS_DAY": "1000",
+    "FRESH_WINDOW_MINUTES": "60",
     "RETENTION_DAYS": "90"
   },
   "d1_databases": [

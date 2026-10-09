@@ -1,0 +1,137 @@
+{
+  "checked_date_utc": "2026-10-08",
+  "live_fl_checked_at": "2026-10-08T07:54:33.364564+00:00",
+  "live_collector_transport": "Public body fetched via urllib inherited proxy; passed to actual collectFlPublic/getText with status, content type and byte limit checks; no raw page persisted",
+  "verification": {"fl_collector_tests_passed": 14, "full_suite_tests_passed": 121, "typecheck_passed": true},
+  "scope": "Public aggregate source feasibility; no account, messages, personal contacts, or CRM records",
+  "network": {"inherited_proxy_preserved": true, "tls_verification_enabled": true, "no_bypass": true},
+  "freshness_requirement_minutes": 60,
+  "fresh_free_web_orders_confirmed": 0,
+  "platforms": [
+    {
+      "name": "FL.ru",
+      "collector_id": "fl-public-free",
+      "endpoints": [
+        {"url": "https://www.fl.ru/robots.txt", "status": 200},
+        {"url": "https://www.fl.ru/projects/", "status": 200, "bytes": 396163, "cards": 30, "strict_free_web_orders": 0, "last_hour_strict_free_web_orders": 0, "exact_free_badge_matches": 0},
+        {"url": "https://www.fl.ru/projects/category/saity/", "status": 200, "bytes": 354909},
+        {"url": "https://www.fl.ru/projects/category/programmirovanie/", "status": 200, "bytes": 369486},
+        {"url": "https://www.fl.ru/vakansii/", "status": 200, "bytes": 380222},
+        {"url": "https://www.fl.ru/about/agreement_site.pdf", "status": 200, "bytes": 264314},
+        {"url": "https://www.fl.ru/about/appendix_2_regulations.pdf", "status": 200, "bytes": 154613}
+      ],
+      "robots": "Public first-page HTML paths allowed; */rss/*, /api/, login and many query paths disallowed. RSS not fetched during this study.",
+      "terms": "Main agreement and appendix checked. No crawler/data-extraction prohibition found. Appendix prohibits disruption, spam and bypass of technical restrictions. This is limited policy evidence, not explicit crawler authorization.",
+      "free_reply": "Official listing FAQ: orders bearing «для всех», all vacancies and all contests have free responses. PRO not required. All other orders require a paid response package.",
+      "requirements": "Registration and identity verification. No paid subscription required for qualifying order response. Manual response only.",
+      "timestamp_evidence": "Live first-page web order published «08.10.2026 в 10:30» and relative 10–20 minutes ago during checks. That order lacked a free badge and was excluded.",
+      "adapter": "Strict bounded public HTML parser; per-card header badge only; type Заказ only; genuine web tasks only. Relative minutes/hours anchored to observation time; zoned datetime preserved; unknown time null.",
+      "integration_status": "Technically useful for conditional monitoring, 15-minute first-page checks, 1MiB hard bound. Tested live parser returned zero eligible records. Do not promise a fresh free order stream or enable RSS."
+    },
+    {
+      "name": "Freelance.ru",
+      "endpoints": [
+        {"url": "https://freelance.ru/robots.txt", "status": 200},
+        {"url": "https://freelance.ru/projects/", "status": 200, "redirects_to": "https://freelance.ru/task"},
+        {"url": "https://freelance.ru/task", "status": 200},
+        {"url": "https://freelance.ru/rules.html", "status": 200}
+      ],
+      "freshness": "Newest general postings 15–18 minutes old, visible web landing-page task about 2 hours old.",
+      "free_reply": false,
+      "evidence": "Rules §9.1: «Базовый аккаунт при регистрации ... при условии приобретения пользователем пакета откликов на задания». «Видно всем» is visibility, not free response eligibility.",
+      "policy": "Basic replies require payment; automatic/mass template responses banned; robots blocks pagination and filter paths.",
+      "integration_status": "Exclude from zero-ruble required-cost reply pool."
+    },
+    {
+      "name": "Kwork",
+      "endpoints": [
+        {"url": "https://kwork.ru/robots.txt", "status": 200},
+        {"url": "https://kwork.ru/projects", "status": 200, "public_order_cards_confirmed": false},
+        {"url": "https://kwork.ru/terms_of_service", "status": 200},
+        {"url": "https://kwork.ru/faq", "status": 200}
+      ],
+      "free_reply": "Official FAQ: one connect per proposal; connects provided free monthly based on seller level and cannot be purchased. An individual account's available allowance was not checked.",
+      "policy": "Terms explicitly prohibit robots/software/requests used to monitor, extract, copy or collect service data. No automated collector, even where robots path is not disallowed.",
+      "integration_status": "Manual candidate only if seller registration and free connect entitlement are satisfied; no anonymous verified last-hour project feed."
+    },
+    {
+      "name": "Weblancer",
+      "endpoints": [
+        {"url": "https://www.weblancer.net/robots.txt", "status": 200},
+        {"url": "https://www.weblancer.net/jobs/", "status": 200, "redirects_to": "https://www.weblancer.net/freelance/"},
+        {"url": "https://www.weblancer.net/freelance/", "status": 200},
+        {"url": "https://www.weblancer.net/help/121.html", "status": 200},
+        {"url": "https://www.weblancer.net/terms/agreement/", "status": 200},
+        {"url": "https://www.weblancer.net/terms/bids/", "status": 200}
+      ],
+      "free_reply": "10-day free trial after uploading photograph and 200-character resume; ongoing free entitlement not established. Agreement points to tariffs and success commission.",
+      "freshness": "Date-only listing includes 08.10.2026; no verified last-hour publication time.",
+      "policy": "Robots blocks /api/, /ajax/, /account/ and query variants; do not fetch protected tariff page.",
+      "integration_status": "No sustained zero-ruble integration established; manual time-limited trial only."
+    },
+    {
+      "name": "Habr Freelance",
+      "endpoints": [{"url": "https://freelance.habr.com/robots.txt", "status": 200}],
+      "policy": "User-agent:* Disallow:/",
+      "integration_status": "Blocked for automatic collection. No tasks or RSS requested after robots denial."
+    },
+    {
+      "name": "Searchengines.guru",
+      "endpoints": [
+        {"url": "https://searchengines.guru/robots.txt", "status": 200},
+        {"url": "https://searchengines.guru/ru/forum/rss", "status": 200, "items": 100},
+        {"url": "https://searchengines.guru/ru/forum/webmasters-jobs/development/rss", "status": 200, "items": 100},
+        {"url": "https://searchengines.guru/ru/about/terms", "status": 200},
+        {"url": "https://searchengines.guru/ru/about/rules", "status": 200}
+      ],
+      "timestamp_caveat": "RSS pubDate represents original thread date (often years old); feed ordering includes updated discussions. Channel build date is not publication time.",
+      "policy": "Terms §3.7 explicitly prohibit automated access including scripts and scanners; §3.9 restricts copying. Stop automatic collection despite working RSS.",
+      "integration_status": "Manual forum research only; no authorized automatic integration."
+    },
+    {
+      "name": "CyberForum",
+      "endpoints": [
+        {"url": "https://www.cyberforum.ru/robots.txt", "status": 200},
+        {"url": "https://www.cyberforum.ru/order-site-scripts/", "status": 200},
+        {"url": "https://www.cyberforum.ru/external.php?type=RSS2&forumids=352", "status": 200, "items": 0}
+      ],
+      "policy": "Robots permits feed; crawl-delay1. Forum requires membership in Freelancers group to view/execute orders. No membership or account action attempted.",
+      "integration_status": "Empty anonymous order RSS; free membership/reply eligibility not verified. No usable public stream."
+    },
+    {
+      "name": "Pchel.net",
+      "endpoints": [
+        {"url": "https://www.pchel.net/robots.txt", "status": 200},
+        {"url": "https://pchel.net/jobs/", "status": 200, "bytes": 220660},
+        {"url": "https://pchel.net/support/", "status": 200},
+        {"url": "https://pchel.net/about/rules/", "status": 200}
+      ],
+      "free_reply": "Official support: Standard accounts 100 free applications/responses per month; PRO optional.",
+      "freshness": "Two web orders from first page show «Создан: 2 года назад» and «Создан: 5 лет назад». No first-page last-hour task verified. Relative activity timestamps are not publication dates.",
+      "policy": "First-page jobs path not disallowed; checked rules contain no automated-access prohibition. No RSS discovered.",
+      "integration_status": "Free-response route confirmed, freshness fails; do not integrate as newest-orders feed."
+    },
+    {
+      "name": "Freelancehunt",
+      "endpoints": [
+        {"url": "https://freelancehunt.com/robots.txt", "status": 200},
+        {"url": "https://freelancehunt.com/projects.rss", "status": 200, "bytes": 72684, "items": 50, "newest_pub_date": "Thu, 08 Oct 2026 10:33:52 +0300"},
+        {"url": "https://freelancehunt.com/legal-center/rules", "status": 200, "later_request_status": 403}
+      ],
+      "free_reply": null,
+      "policy": "Robots allows RSS, reserves no AI training. One successful rules load did not establish free allowance or Russian account eligibility; later403 not bypassed or retried.",
+      "integration_status": "Technically strongest actual recent RSS candidate, but zero-cost response and Russian eligibility unproven. Leave disabled pending official verification."
+    },
+    {
+      "name": "Other boards",
+      "endpoints": [
+        {"url": "https://freelancejob.ru/robots.txt", "status": 200},
+        {"url": "https://www.maultalk.com/robots.txt", "status": 200},
+        {"url": "https://www.maultalk.com/", "status": 200, "usable_content": false},
+        {"url": "https://www.sql.ru/robots.txt", "status": 503}
+      ],
+      "policy": "Freelancejob robots notice prohibits automated collection except search indexing/AI RAG or written permission; lead harvesting is not those exceptions. Maultalk root yielded only domain title. SQL503 not bypassed.",
+      "integration_status": "No tested qualifying integration."
+    }
+  ]
+}

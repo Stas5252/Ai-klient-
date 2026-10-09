@@ -1,0 +1,10 @@
+{
+  "checkedAt": "2026-10-09",
+  "newWorkerDeployed": false,
+  "guardedDeployExitCode": 1,
+  "reason": "Cloudflare billing unreadable; Free plan not confirmed for existing-account deployment",
+  "subscriptionsHttpStatus": 403,
+  "purchases": 0,
+  "newPaidServices": 0,
+  "newCardBindings": 0
+}

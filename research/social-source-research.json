@@ -1,0 +1,278 @@
+{
+  "research_date": "2026-10-08",
+  "purpose": "Russian project-specific web freelance buyer discovery at zero rubles, without cold spam",
+  "network": {
+    "inherited_proxy_preserved": true,
+    "tls_verification": true,
+    "policy_observed": "unrestricted_enforced",
+    "secrets_inspected": false
+  },
+  "sources": [
+    {
+      "id": "threads",
+      "status": "authorization_and_public_permission_approval_required",
+      "verified_connected": false,
+      "official_discovery": true,
+      "endpoint": "https://graph.threads.com/v1.0/keyword_search",
+      "permissions": [
+        "threads_basic",
+        "threads_keyword_search"
+      ],
+      "approval_required_for_public_posts": true,
+      "unapproved_visibility": "authenticated_user_posts_only",
+      "recent_parameter": {
+        "search_type": "RECENT"
+      },
+      "fields": [
+        "id",
+        "text",
+        "permalink",
+        "timestamp"
+      ],
+      "time_parameters": [
+        "since",
+        "until"
+      ],
+      "page_max": 100,
+      "limit": {
+        "queries": 2200,
+        "rolling_hours": 24,
+        "scope": "user_across_apps",
+        "repeated_queries_count": true,
+        "empty_results_count": false
+      },
+      "token_lifetimes": {
+        "short_seconds": 3600,
+        "long_days": 60,
+        "refresh_min_age_hours": 24,
+        "refresh_requires_unexpired": true
+      },
+      "setup_urls": [
+        "https://developers.facebook.com/apps/",
+        "https://developers.facebook.com/documentation/threads/get-started/create-an-app",
+        "https://developers.facebook.com/documentation/threads/get-started/get-access-tokens-and-permissions",
+        "https://threads.com/oauth/authorize"
+      ],
+      "evidence": [
+        {
+          "url": "https://developers.facebook.com/documentation/threads/keyword-search",
+          "http_status": 200,
+          "doc_updated": "2026-01-21"
+        },
+        {
+          "url": "https://developers.facebook.com/documentation/threads/get-started/get-access-tokens-and-permissions",
+          "http_status": 200,
+          "doc_updated": "2026-08-12"
+        },
+        {
+          "url": "https://developers.facebook.com/documentation/threads/get-started/long-lived-tokens",
+          "http_status": 200,
+          "doc_updated": "2025-03-27"
+        }
+      ]
+    },
+    {
+      "id": "vk",
+      "status": "authorization_required_current_entitlement_unverified",
+      "verified_connected": false,
+      "official_discovery": true,
+      "live_docs_status": "proxy_destination_denial_403_no_bypass",
+      "schema_version": "5.199",
+      "current_oauth_scopes": null,
+      "current_rate_limits": null,
+      "schema_contract": {
+        "newsfeed.search": {
+          "token_types": [
+            "user",
+            "service"
+          ],
+          "parameters": [
+            "q",
+            "start_time",
+            "end_time",
+            "start_from",
+            "count"
+          ],
+          "default_time_window_hours": 24,
+          "count_max": 200,
+          "method_file_commit": "81bd2be682c626d3efa56d5a859e8567c7a76cbd",
+          "method_file_commit_date": "2024-04-19"
+        },
+        "wall.get": {
+          "token_types": [
+            "user",
+            "service"
+          ],
+          "parameters": [
+            "domain",
+            "offset",
+            "count",
+            "filter",
+            "extended"
+          ],
+          "count_max": 100,
+          "public_filters": [
+            "all",
+            "owner",
+            "others"
+          ],
+          "method_file_commit": "08576fa2fab4d76478070fd7c083f01fe60b74dc",
+          "method_file_commit_date": "2025-01-20"
+        }
+      },
+      "must_preflight_with_own_eligible_key": true,
+      "setup_urls": [
+        "https://vk.com/apps?act=manage",
+        "https://dev.vk.com/ru/api/overview",
+        "https://dev.vk.com/ru/method/wall.get",
+        "https://dev.vk.com/ru/method/newsfeed.search"
+      ],
+      "setup_links_opened_successfully": false,
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/VKCOM/vk-api-schema/master/newsfeed/methods.json",
+          "http_status": 200
+        },
+        {
+          "url": "https://raw.githubusercontent.com/VKCOM/vk-api-schema/master/wall/methods.json",
+          "http_status": 200
+        },
+        {
+          "url": "https://raw.githubusercontent.com/VKCOM/vk-api-schema/master/wall/objects.json",
+          "http_status": 200
+        }
+      ]
+    },
+    {
+      "id": "instagram",
+      "status": "professional_account_page_token_and_app_review_required",
+      "verified_connected": false,
+      "general_keyword_search": false,
+      "official_discovery": "hashtag_media_and_known_professional_accounts",
+      "permissions": [
+        "instagram_basic"
+      ],
+      "features": [
+        "Instagram Public Content Access"
+      ],
+      "limit": {
+        "unique_hashtags": 30,
+        "rolling_days": 7,
+        "recent_window_hours": 24,
+        "page_max": 50
+      },
+      "chronological_results_guaranteed": false,
+      "username_returned_by_hashtag_recent_media": false,
+      "api_comments_on_discovered_hashtag_media_allowed": false,
+      "consumer_accounts_supported_by_facebook_login_api": false,
+      "setup_urls": [
+        "https://developers.facebook.com/apps/",
+        "https://developers.facebook.com/documentation/instagram-platform/instagram-api-with-facebook-login"
+      ],
+      "evidence": [
+        {
+          "url": "https://developers.facebook.com/documentation/instagram-platform/instagram-api-with-facebook-login/hashtag-search",
+          "http_status": 200,
+          "doc_updated": "2026-08-17"
+        },
+        {
+          "url": "https://developers.facebook.com/documentation/instagram-platform/instagram-graph-api/reference/ig-hashtag/recent-media",
+          "http_status": 200,
+          "doc_updated": "2026-08-17"
+        },
+        {
+          "url": "https://developers.facebook.com/documentation/instagram-platform/instagram-api-with-facebook-login/business-discovery",
+          "http_status": 200,
+          "doc_updated": "2026-08-12"
+        },
+        {
+          "url": "https://developers.facebook.com/documentation/instagram-platform/instagram-api-with-instagram-login",
+          "http_status": 200,
+          "doc_updated": "2025-01-21"
+        }
+      ]
+    },
+    {
+      "id": "telegram_bot_inbound",
+      "status": "existing_project_path_connection_check_and_consent_required",
+      "verified_connected": false,
+      "free_normal_bot_api": true,
+      "public_channel_discovery": false,
+      "allowed_collection": "direct_voluntary_buyer_submissions_with_informed_individual_explicit_active_revocable_consent",
+      "channel_membership_alone_grants_processing_consent": false,
+      "setup_urls": [
+        "https://t.me/BotFather",
+        "https://core.telegram.org/bots/api"
+      ],
+      "evidence": [
+        {
+          "url": "https://core.telegram.org/bots/faq",
+          "http_status": 200
+        },
+        {
+          "url": "https://telegram.org/tos/bot-developers",
+          "http_status": 200,
+          "section": "4.3"
+        }
+      ]
+    },
+    {
+      "id": "telegram_public_web_monitor",
+      "status": "do_not_enable_without_applicable_authorization_and_consent",
+      "verified_connected": false,
+      "robots_status": 404,
+      "robots_missing_means_permission": false,
+      "channel_posts_fetched": 0,
+      "reason": "Official terms restrict scraping and AI aggregation; do not collect public t.me/s job posts for an AI lead dataset without applicable author consent.",
+      "evidence": [
+        {
+          "url": "https://t.me/robots.txt",
+          "http_status": 404
+        },
+        {
+          "url": "https://telegram.org/tos",
+          "http_status": 200
+        },
+        {
+          "url": "https://telegram.org/tos/content-licensing",
+          "http_status": 200
+        },
+        {
+          "url": "https://telegram.org/tos/bot-developers",
+          "http_status": 200,
+          "section": "4.3"
+        }
+      ]
+    }
+  ],
+  "verified_recent_buyer_requests": [],
+  "verified_recent_buyer_request_count": 0,
+  "verified_free_reply_routes_count": 0,
+  "unverified_not_equivalent_to_zero_demand": true,
+  "personal_contacts_collected": false,
+  "messages_sent": 0,
+  "production_files_changed": false,
+  "candidate_queries": [
+    "нужен сайт",
+    "ищу разработчика сайта",
+    "нужен лендинг",
+    "заказать сайт",
+    "нужен интернет-магазин",
+    "ищу веб-разработчика"
+  ],
+  "buyer_filters": {
+    "require": "specific project/request and original timestamp",
+    "reject": [
+      "developer service advertisement",
+      "permanent job",
+      "portfolio",
+      "course",
+      "closed request",
+      "unknown timestamp",
+      "future timestamp"
+    ],
+    "preferred_age_hours": 24,
+    "maximum_fresh_age_hours": 72
+  },
+  "response_policy": "Only original author-invited routes after checking rules and free access; manual approval/reply, no cold DMs or contact database publication."
+}

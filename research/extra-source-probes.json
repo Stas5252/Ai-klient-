@@ -1,0 +1,41 @@
+[
+  {
+    "url": "https://public.api.bsky.app/xrpc/app.bsky.feed.searchPosts?q=%22%D0%BD%D1%83%D0%B6%D0%B5%D0%BD+%D1%81%D0%B0%D0%B9%D1%82%22&sort=latest&limit=10",
+    "error": "HTTPError",
+    "status": 403
+  },
+  {
+    "url": "https://php.ru/robots.txt",
+    "status": 200,
+    "bytes": 863,
+    "text": "Host: php.ru\nUser-agent: *\nDisallow: /forum/test/\nDisallow: /forum/account/\nDisallow: /forum/admin.php\nDisallow: /forum/ajax/\nDisallow: /forum/conversations/\nDisallow: /forum/events/birthdays/\nDisallow: /forum/events/monthly\nDisallow: /forum/events/weekly\nDisallow: /forum/find-new/\nDisallow: /forum/forums/-/\nDisallow: /forum/forums/tweets/\nDisallow: /forum/goto/\nDisallow: /forum/help/\nDisallow: /forum/login/\nDisallow: /forum/lost-password/\nDisallow: /forum/media/category/\nDisallow: /forum/media/keyword/\nDisallow: /forum/media/user/\nDisallow: /forum/media/service/\nDisallow: /forum/media/submit/\nDisallow: /forum/misc/style?*\nDisallow: /forum/misc/quick-navigation-menu?*\nDisallow: /forum/online/\nDisallow: /forum/pages/conduct/\nDisallow: /forum/pages/privacy/\nDisallow: /forum/posts/\nDisallow: /forum/threads/tera-tweet-from-*\nDisallow: /forum/wiki/special/"
+  },
+  {
+    "url": "https://www.cyberforum.ru/robots.txt",
+    "status": 200,
+    "bytes": 1362,
+    "text": "Sitemap: https://www.cyberforum.ru/sitemap_index.xml.gz\n\nUser-agent: * \nCrawl-delay: 1\nDisallow: /cron.php\nDisallow: /editpost.php\nDisallow: /go.php\nDisallow: /google.php\nDisallow: /login.php\nDisallow: /misc.php\nDisallow: /newreply.php\nDisallow: /newthread.php\nDisallow: /post_thanks.php\nDisallow: /private.php\nDisallow: /register.php\nDisallow: /redirector.php\nDisallow: /sendmessage.php\nDisallow: /search.php\nDisallow: /thumbs.php\nDisallow: /thumbs_center.php\nDisallow: /yandex.php\n\nUser-agent: Yandex\nDisallow: /cron.php\nDisallow: /editpost.php\nDisallow: /go.php\nDisallow: /google.php\nDisallow: /login.php\nDisallow: /misc.php\nDisallow: /newreply.php\nDisallow: /newthread.php\nDisallow: /post_thanks.php\nDisallow: /private.php\nDisallow: /register.php\nDisallow: /redirector.php\nDisallow: /sendmessage.php\nDisallow: /search.php\nDisallow: /thumbs.php\nDisallow: /thumbs_center.php\nDisallow: /yandex.php\nClean-param: do&id&nojs&pg&pp&search&tp&uri\n\nUser-agent: Googlebot\nDisallow: /cron.php\nDisallow: /editpost.php\nDisallow: /go.php\nDisallow: /google.php\nDisallow: /login.php\nDisallow: /misc.php\nDisallow: /newreply.php\nDisallow: /newthread.php\nDisallow: /post_thanks.php\nDisallow: /private.php\nDisallow: /register.php\nDisallow: /redirector.php\nDisallow: /sendmessage.php\nDisallow: /search.php\nDisallow: /thumbs.php\nDisallow: /thumbs_center.php\nDisallow: /yandex.php\n"
+  },
+  {
+    "url": "https://forum.webmasters.ru/robots.txt",
+    "error": "HTTPError",
+    "status": 503
+  },
+  {
+    "url": "https://dizz.com/robots.txt",
+    "status": 200,
+    "bytes": 177,
+    "text": "# START YOAST BLOCK\n# ---------------------------\nUser-agent: *\nDisallow:\n\nSitemap: https://learnmechanical.com/sitemap_index.xml\n# ---------------------------\n# END YOAST BLOCK"
+  },
+  {
+    "url": "https://www.dev.by/robots.txt",
+    "error": "HTTPError",
+    "status": 530
+  },
+  {
+    "url": "https://www.weblancer.net/robots.txt",
+    "status": 200,
+    "bytes": 717,
+    "text": "User-agent: *\n\nAllow: *action=search\nAllow: *filter=closed\n\nDisallow: /account/\nDisallow: /ajax/\nDisallow: /api/\nDisallow: /download/contracts/\nDisallow: /download/projects/\nDisallow: /seo/\nDisallow: /socket*\n\nDisallow: *action=\nDisallow: *filter=\nDisallow: *lang=\nDisallow: *order_field=\nDisallow: *order_type=\nDisallow: *page=first\nDisallow: *page=last\nDisallow: *post_id=\nDisallow: *q=\nDisallow: *result=\nDisallow: *srsltid=\nDisallow: *tab=\nDisallow: *type=\n\nSitemap: https://www.weblancer.net/sitemap_index.xml\n\nUser-agent: amazon-kendra\nUser-agent: similarweb\nUser-agent: Amazonbot\nUser-agent: AwarioSmartBot\nUser-agent: AwarioRssBot\nUser-agent: DotBot\nUser-agent: SeekportBot\nUser-agent: TurnitinBot\nDisallow: /"
+  }
+]

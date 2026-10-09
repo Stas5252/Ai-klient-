@@ -1,0 +1,58 @@
+[
+  {
+    "view": "desktop",
+    "http": 200,
+    "metrics": {
+      "title": "Создание сайтов в Самаре под ключ — Станислав",
+      "viewport": 1440,
+      "scrollWidth": 1440,
+      "h1": [
+        "Создаю сайты\nдля бизнеса\nпод ключ."
+      ],
+      "images": 3,
+      "brokenImages": 0,
+      "brief": true,
+      "contactLinks": 5,
+      "canonical": "https://stanislavweb.ru/",
+      "headings": [
+        "Избранные\nработы.",
+        "Зачем вашему\nбизнесу сайт?",
+        "От первой идеи\nдо вашего сайта.",
+        "Ваш сайт\nделаю я.",
+        "Остались\nвопросы?",
+        "Обсудим,\nчто вам нужно."
+      ]
+    },
+    "jsErrors": [],
+    "badResources": [],
+    "blockedWrites": []
+  },
+  {
+    "view": "mobile",
+    "http": 200,
+    "metrics": {
+      "title": "Создание сайтов в Самаре под ключ — Станислав",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "h1": [
+        "Создаю сайты\nдля бизнеса\nпод ключ."
+      ],
+      "images": 3,
+      "brokenImages": 0,
+      "brief": true,
+      "contactLinks": 5,
+      "canonical": "https://stanislavweb.ru/",
+      "headings": [
+        "Избранные\nработы.",
+        "Зачем вашему\nбизнесу сайт?",
+        "От первой идеи\nдо вашего сайта.",
+        "Ваш сайт\nделаю я.",
+        "Остались\nвопросы?",
+        "Обсудим, что вам нужно."
+      ]
+    },
+    "jsErrors": [],
+    "badResources": [],
+    "blockedWrites": []
+  }
+]

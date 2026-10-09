@@ -26,7 +26,7 @@ npm run deploy
 
 Скрипт сначала проверяет все обязательные поля и account billing через официальный API. При закрытом billing допускается только новый пустой аккаунт по указанным выше признакам; иначе fail closed. Платный/неизвестный обнаруженный Workers plan отклоняется. Скрипт ничего не покупает: создаёт D1 database при необходимости, записывает UUID в wrangler.jsonc, применяет миграции, deploy, загружает secrets bulk через stdin, setWebhook secret, setMyCommands и GET /health. **Не считать проект готовым только по успешному deploy.**
 
-BUSINESS_BBOX (одна маленькая область) и TELEGRAM_GROUP_IDS опциональны. Добавляйте через vars/private конфигурацию. OpenStreetMap не охватывает все компании РФ и не подтверждает отсутствие сайта. Для groups бот должен быть добавлен и использование разрешено администратором. Отключение источника — `enabled:false` + redeploy; состояние/пауза живут в D1.
+BUSINESS_BBOX (одна маленькая область) опционален. Сбор Telegram-групп в обновлении выключен, TELEGRAM_GROUP_IDS не включает его. Добавляйте через vars/private конфигурацию. OpenStreetMap не охватывает все компании РФ и не подтверждает отсутствие сайта. Для groups бот должен быть добавлен и использование разрешено администратором. Отключение источника — `enabled:false` + redeploy; состояние/пауза живут в D1.
 
 ## Обязательная приёмка после deploy
 
@@ -54,3 +54,9 @@ BUSINESS_BBOX (одна маленькая область) и TELEGRAM_GROUP_IDS
 ## Подключение Telegram без раскрытия токена исполнителю
 
 Сохранить `TELEGRAM_BOT_TOKEN` прямо в Variables and Secrets → Secret на странице Worker. Затем исполнитель вызывает защищённый `POST /api/connect-telegram`: Worker сам вызывает getMe/setWebhook/setMyCommands. `GET /api/telegram-status` возвращает только URL/pending/error flag, без токена. Текущий токен оставлен по прямому указанию владельца; в git/logs его нет.
+
+## Новые подключения (код пока не опубликован)
+
+Threads: Meta App Review для threads_keyword_search/threads_basic, затем безопасный read-only preflight чужого публичного поста. Только после этого THREADS_PUBLIC_SEARCH_VERIFIED=1. Токен THREADS_ACCESS_TOKEN — Secret в Worker. VK_ACCESS_TOKEN аналогично; доступ newsfeed.search должен пройти реальную проверку. Секреты не в чат и не в git. /connect показывает инструкции, /sources отличает ожидание допуска от успешной загрузки. Подробности research/SOCIAL_SOURCE_RESEARCH.md.
+
+Один ключевой запрос каждого провайдера планируется раз в 15 минут, остальные раз в час. FRESH_WINDOW_MINUTES=60. Общий HTTP лимит 1000, 10% оставлено Telegram. Изменения ещё требуют guarded deploy, настоящего уведомления и нового автономного cron.

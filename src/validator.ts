@@ -15,6 +15,6 @@ export function qualify(raw:RawItem,source:Source,now=Date.now()):Lead|null {
  const partner=/(?:для|на).{0,20}партн[её]рств|ищ(?:у|ем|ет).{0,40}(?:разработчика|веб.{0,3}разработчика).{0,50}(?:на проекты|для проектов|постоян|регуляр)|(?:мы|наша).{0,20}(?:студия|агентство).{0,60}ищ(?:ем|ет).{0,40}(?:разработ|верст)/i.test(t);
  const suspicious=/ignore previous|system prompt|игнорируй.{0,20}инструк|отправь токен|выполни команд|<script|\$\(/i.test(t);
  const budget=budgetRange(t);
- const l:Lead={...raw,title,text,url,id:'',contentKey:'',...budget,currency:budget.budget===null?null:'RUB',discoveredAt:now,checkedAt:now,category:partner?'partner':'order',priority:'A',score:0,confidence:raw.publishedAt===null?'low':'medium',needsReview:raw.publishedAt===null||suspicious,status:'new',message:'',doNotContact:false,contact:null,problems:[],reasons:[]};
+ const l:Lead={...raw,title,text,url,isFreeReply:raw.isFreeReply??source.freeReply===true,id:'',contentKey:'',...budget,currency:budget.budget===null?null:'RUB',discoveredAt:now,checkedAt:now,category:partner?'partner':'order',priority:'A',score:0,confidence:raw.publishedAt===null?'low':'medium',needsReview:raw.publishedAt===null||suspicious,status:'new',message:'',doNotContact:false,contact:null,problems:[],reasons:[]};
  scoreLead(l,source,now);l.message=buildMessage(l);return l;
 }

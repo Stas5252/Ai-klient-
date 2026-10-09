@@ -1,0 +1,157 @@
+{
+  "checkedAt": "2026-10-09T13:16:11.827Z",
+  "environment": "local execution with persistent private SQLite, NOT deployed",
+  "firstRun": {
+    "inspected": 0,
+    "qualified": 0,
+    "inserted": 0,
+    "rejected": 0,
+    "audits": 0,
+    "notifications": 2,
+    "state": "ok"
+  },
+  "repeatRun": {
+    "inspected": 0,
+    "qualified": 0,
+    "inserted": 0,
+    "rejected": 0,
+    "audits": 0,
+    "notifications": 0,
+    "state": "ok"
+  },
+  "sourceChecks": [
+    {
+      "id": "fl-public-free",
+      "last_checked": 1791551763760,
+      "error": null,
+      "inspected": 0,
+      "found": 0
+    },
+    {
+      "id": "threads-1",
+      "last_checked": 1791551763760,
+      "error": "needs_threads_authorization",
+      "inspected": 0,
+      "found": 0
+    },
+    {
+      "id": "vk-1",
+      "last_checked": 1791551763760,
+      "error": "needs_vk_authorization",
+      "inspected": 0,
+      "found": 0
+    },
+    {
+      "id": "threads-2",
+      "last_checked": 1791551763760,
+      "error": "needs_threads_authorization",
+      "inspected": 0,
+      "found": 0
+    },
+    {
+      "id": "vk-2",
+      "last_checked": 1791551763760,
+      "error": "needs_vk_authorization",
+      "inspected": 0,
+      "found": 0
+    },
+    {
+      "id": "threads-3",
+      "last_checked": 1791551763760,
+      "error": "needs_threads_authorization",
+      "inspected": 0,
+      "found": 0
+    },
+    {
+      "id": "vk-3",
+      "last_checked": 1791551763760,
+      "error": "needs_vk_authorization",
+      "inspected": 0,
+      "found": 0
+    },
+    {
+      "id": "threads-4",
+      "last_checked": 1791551763760,
+      "error": "needs_threads_authorization",
+      "inspected": 0,
+      "found": 0
+    },
+    {
+      "id": "vk-4",
+      "last_checked": 1791551763760,
+      "error": "needs_vk_authorization",
+      "inspected": 0,
+      "found": 0
+    },
+    {
+      "id": "threads-5",
+      "last_checked": 1791551763760,
+      "error": "needs_threads_authorization",
+      "inspected": 0,
+      "found": 0
+    },
+    {
+      "id": "vk-5",
+      "last_checked": 1791551763760,
+      "error": "needs_vk_authorization",
+      "inspected": 0,
+      "found": 0
+    },
+    {
+      "id": "threads-6",
+      "last_checked": 1791551763760,
+      "error": "needs_threads_authorization",
+      "inspected": 0,
+      "found": 0
+    },
+    {
+      "id": "vk-6",
+      "last_checked": 1791551763760,
+      "error": "needs_vk_authorization",
+      "inspected": 0,
+      "found": 0
+    },
+    {
+      "id": "threads-7",
+      "last_checked": 1791551763760,
+      "error": "needs_threads_authorization",
+      "inspected": 0,
+      "found": 0
+    },
+    {
+      "id": "vk-7",
+      "last_checked": 1791551763760,
+      "error": "needs_vk_authorization",
+      "inspected": 0,
+      "found": 0
+    },
+    {
+      "id": "threads-8",
+      "last_checked": 1791551763760,
+      "error": "needs_threads_authorization",
+      "inspected": 0,
+      "found": 0
+    },
+    {
+      "id": "vk-8",
+      "last_checked": 1791551763760,
+      "error": "needs_vk_authorization",
+      "inspected": 0,
+      "found": 0
+    }
+  ],
+  "storedLeads": 0,
+  "freshFreeLeads": 0,
+  "orders": 0,
+  "partners": 0,
+  "businesses": 0,
+  "ownerNotifications": 2,
+  "thirdPartyMessages": 0,
+  "audit": {
+    "state": "ok",
+    "confirmedProblems": [],
+    "notes": [
+      "Только статический HTML; формы и корзина не отправлялись, JS/скорость/дизайн не проверены."
+    ]
+  }
+}

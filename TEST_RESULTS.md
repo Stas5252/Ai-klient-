@@ -1,5 +1,15 @@
 # Результаты проверок
 
+## Обновление 09.10.2026
+
+`npm test`: **147 PASS, 11 файлов**; TypeScript и dry-run build PASS; `git diff --check` PASS. Проверены свежесть/даты/бесплатность, FL, официальные social API с подставленным HTTP, несколько источников, отдельный допуск Threads, резерв для Telegram, просроченные уведомления/архив, отмена брифа/пустые ответы, бюджет и канал заявки.
+
+Live 13:16 UTC: реальный FL robots/page успешно загружен, подходящих бесплатных карточек/новых заказов 0. Threads/VK ждут авторизации, реальных API-запросов 0. Telegram подтвердил **2 сообщения только владельцу**, повторный run — 0, третьим лицам — 0. Локальная постоянная SQLite; research/fresh-live-results.json. Обновление Worker и следующий cron не подтверждены: billing 403 блокирует deploy guard.
+
+Сайт: 8 страниц HTTP 200, mobile/desktop без наблюдавшихся ошибок JS, переполнения и битых картинок; бриф подготовил корректный черновик без отправки. SEO/schema/sitemap присутствуют. Индексация, позиции, трафик не проверялись. WEBSITE_LEAD_AUDIT.md и research/portfolio-*.
+
+## Исторические проверки первоначального запуска
+
 Последняя полная автоматическая проверка: 08.10.2026, 06:48 UTC, Node 24.19, TypeScript, Vitest 4.1.11, local workerd/Miniflare D1. Production проверки отдельно ниже.
 
 | Проверка | Результат |
@@ -60,3 +70,6 @@
 ## Проверка кода
 
 Независимый агент review проверил код и нашёл 6 проблем: intake atomicity, inbound dedup, cleanup of owner copies, optout bypass, parser workload, HTTP quota. Все исправлены; regression tests подтверждают первые 4 и quota. Workload ограничен и измерен локально. Дополнительный независимый review deployment-policy и защищённых Telegram connect/status endpoints: новых critical/important замечаний нет; bootstrap нельзя выдавать за подтверждение billing. Полная suite84/typecheck/build прошла.
+
+
+Production 09.10.2026 13:23 UTC: D1 source_state Workspace отключён, 7 его старых записей со статусом new перенесены в archived (не удалены). `/api/health` HTTP 200: последний автономный тик 13:15:59 UTC, state ok, paused=0. Telegram webhook правильный, pending=0, hasError=false. Это прежний Worker; новые функции не опубликованы. Агрегат research/production-current-health.json.

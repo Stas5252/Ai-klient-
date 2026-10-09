@@ -1,0 +1,28 @@
+{
+  "checkedAt": "2026-10-09T13:23:05Z",
+  "newWorkerDeployed": false,
+  "workspaceSourceDisabled": true,
+  "staleWorkspaceNewStatusArchived": true,
+  "d1RowsChanged": [
+    1,
+    7
+  ],
+  "/api/health": {
+    "http": 200,
+    "result": {
+      "lastTick": "2026-10-09T13:15:59.000Z",
+      "lastRun": "{\"inspected\":0,\"qualified\":0,\"inserted\":0,\"rejected\":0,\"audits\":0,\"notifications\":0,\"state\":\"ok\",\"at\":1791551759000}",
+      "paused": "0",
+      "outboundStopped": "0"
+    }
+  },
+  "/api/telegram-status": {
+    "http": 200,
+    "result": {
+      "ok": true,
+      "url": "https://web-lead-machine.stas5252-leads-9fb8e2.workers.dev/webhook",
+      "pending": 0,
+      "hasError": false
+    }
+  }
+}

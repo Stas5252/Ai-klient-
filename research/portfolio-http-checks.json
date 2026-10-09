@@ -1,0 +1,130 @@
+[
+  {
+    "path": "/landing/",
+    "http": 200,
+    "title": [
+      "Разработка лендинга от 7 000 ₽ — StanislavWeb"
+    ],
+    "h1": [
+      "Лендинг для продукта или услуги — от идеи до запуска"
+    ],
+    "canonical": [
+      "https://stanislavweb.ru/landing/"
+    ],
+    "bytes": 18608
+  },
+  {
+    "path": "/expert-site/",
+    "http": 200,
+    "title": [
+      "Сайт для эксперта от 10 000 ₽ — StanislavWeb"
+    ],
+    "h1": [
+      "Сайт для эксперта: услуги, опыт и запись"
+    ],
+    "canonical": [
+      "https://stanislavweb.ru/expert-site/"
+    ],
+    "bytes": 18586
+  },
+  {
+    "path": "/business-site/",
+    "http": 200,
+    "title": [
+      "Сайт для бизнеса от 15 000 ₽ — StanislavWeb"
+    ],
+    "h1": [
+      "Сайт для компании с несколькими услугами"
+    ],
+    "canonical": [
+      "https://stanislavweb.ru/business-site/"
+    ],
+    "bytes": 18817
+  },
+  {
+    "path": "/work/rivera-hall/",
+    "http": 200,
+    "title": [
+      "Сайт Ривьера Холл в Самаре — проект Станислава"
+    ],
+    "h1": [
+      "Ривьера Холл"
+    ],
+    "canonical": [
+      "https://stanislavweb.ru/work/rivera-hall/"
+    ],
+    "bytes": 13428
+  },
+  {
+    "path": "/work/kristina-dimond/",
+    "http": 200,
+    "title": [
+      "Сайт стилиста Кристины Даймонд — работа Станислава"
+    ],
+    "h1": [
+      "Кристина Даймонд"
+    ],
+    "canonical": [
+      "https://stanislavweb.ru/work/kristina-dimond/"
+    ],
+    "bytes": 13416
+  },
+  {
+    "path": "/work/n7/",
+    "http": 200,
+    "title": [
+      "Сайт N7 Киберарена — дизайн и разработка Станислава"
+    ],
+    "h1": [
+      "N7 Киберарена"
+    ],
+    "canonical": [
+      "https://stanislavweb.ru/work/n7/"
+    ],
+    "bytes": 13483
+  },
+  {
+    "path": "/consent.html",
+    "http": 200,
+    "title": [
+      "Согласие и передача обращения — StanislavWeb"
+    ],
+    "h1": [
+      "Согласие и передача обращения"
+    ],
+    "canonical": [
+      "https://stanislavweb.ru/consent.html"
+    ],
+    "bytes": 2497
+  },
+  {
+    "path": "/privacy.html",
+    "http": 200,
+    "title": [
+      "Политика конфиденциальности — StanislavWeb"
+    ],
+    "h1": [
+      "Политика конфиденциальности"
+    ],
+    "canonical": [
+      "https://stanislavweb.ru/privacy.html"
+    ],
+    "bytes": 4825
+  },
+  {
+    "path": "/assets/leads.js?v=5525ef945c30",
+    "http": 200,
+    "title": [],
+    "h1": [],
+    "canonical": [],
+    "bytes": 14207
+  },
+  {
+    "path": "/assets/config.js?v=ec80e66ea4b8",
+    "http": 200,
+    "title": [],
+    "h1": [],
+    "canonical": [],
+    "bytes": 414
+  }
+]

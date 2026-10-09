@@ -1,5 +1,7 @@
 # Архитектура
 
+Подготовленное обновление 09.10.2026: collector_dispatch выбирает RSS/FL/официальные Threads/VK; freshness требует исходную дату и бесплатность. FL ограничен 1 MiB, RSS 256 KiB. listCurrent и отправка outbox фильтруют устаревшее; archive явно отдельный. Threads public-search требует дополнительной верификации. Входящие поддерживают источник /start, бюджет, меню и отмену pending вопросов. Общий HTTP budget оставляет 10% Telegram. Публикация обновления ожидает billing guard.
+
 TypeScript Cloudflare Worker, Cloudflare D1, официальный Telegram Bot API. GitHub Actions только CI, не постоянное хранилище и не production scheduler.
 
 ```mermaid

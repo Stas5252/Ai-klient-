@@ -1,0 +1,64 @@
+[
+  {
+    "url": "https://php.ru/forum/",
+    "http": 200,
+    "length": 94349,
+    "contentType": "text/html; charset=UTF-8",
+    "jobCategoryLinks": [
+      [
+        "forums/obrabotka-izobrazhenij-sredstvami-php.11/",
+        "Обработка изображений средствами PHP"
+      ],
+      [
+        "forums/rabota-s-pochtoj.12/",
+        "Работа с почтой"
+      ],
+      [
+        "posts/710890/",
+        "Cruder Query Builder для бесшовной работы в MySQL/MariaDB, Posgree, SQLite"
+      ],
+      [
+        ".#rabota.34",
+        "Работа"
+      ],
+      [
+        "posts/721116/",
+        "Разработчик для ИМ на X млн товаров  #PHP #Fullstack #Middle #Senior #Backend #Frontend #Remote"
+      ]
+    ]
+  },
+  {
+    "url": "https://www.cyberforum.ru/freelance/",
+    "http": 200,
+    "length": 103793,
+    "contentType": "text/html; charset=utf-8",
+    "rssLinks": [
+      "https://www.cyberforum.ru/external.php?type=RSS2",
+      "https://www.cyberforum.ru/external.php?type=RSS2&amp;forumids=51"
+    ]
+  },
+  {
+    "url": "https://www.cyberforum.ru/external.php?type=RSS2&forumids=168",
+    "http": 200,
+    "length": 1934,
+    "contentType": "text/xml; charset=utf-8",
+    "dates": [
+      "Mon, 05 Oct 2026 11:08:07 GMT"
+    ],
+    "rss": true
+  },
+  {
+    "url": "https://php.ru/forum/forums/rabota.16/index.rss",
+    "http": 200,
+    "length": 67461,
+    "contentType": "text/xml; charset=UTF-8",
+    "dates": [
+      "Thu, 08 Oct 2026 07:46:47 +0000",
+      "Sat, 02 May 2026 09:15:34 +0000",
+      "Mon, 09 Feb 2026 12:33:56 +0000",
+      "Fri, 26 Dec 2025 04:03:38 +0000",
+      "Tue, 28 Oct 2025 19:40:05 +0000"
+    ],
+    "rss": true
+  }
+]

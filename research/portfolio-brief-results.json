@@ -1,0 +1,12 @@
+{
+  "visible": true,
+  "status": "Черновик готов. Сообщение ещё не отправлено.",
+  "message": "Здравствуйте, Станислав!\nМеня зовут Технический тест.\nНужен: Пока не знаю.\nБюджет: Пока не знаю.\n\nЗадача: Технический тест брифа: исправить мобильную версию. Это не заявка.",
+  "telegramHost": "t.me",
+  "telegramDraftHasTask": true,
+  "emailScheme": "mailto",
+  "attributionSaved": "{\"utm_source\":\"technical_test\",\"utm_medium\":\"audit\",\"utm_campaign\":\"brief_check\"}",
+  "blockedWrites": [],
+  "sentMessages": 0,
+  "checkedAt": "2026-10-08"
+}
